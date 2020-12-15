@@ -10,7 +10,7 @@ module.exports = () => {
   const config = {
     devtool: 'inline-source-map',
     entry: {
-      main: [path.resolve(__dirname, './src/js/index.js'), './src/sass/style.scss']
+      main: [path.resolve(__dirname, './src/js/store.js'), './src/sass/style.scss']
     },
     output: {
     filename: 'script.js',
@@ -33,7 +33,7 @@ module.exports = () => {
                 test: /\.s[ac]ss$/i,
                 use: [
                   {
-                    loader: MiniCssExtractPlugin.loader, 
+                    loader: MiniCssExtractPlugin.loader,
                     options: {
                         publicPath: '',
                     }
@@ -53,7 +53,7 @@ module.exports = () => {
               {
                 test: /\.(woff(2)?|eot|ttf|otf|svg)$/,
                 type: 'asset/inline',
-              } 
+              }
         ]
     },
 
@@ -63,11 +63,11 @@ module.exports = () => {
             filename: 'style.css'
         }),
         new HtmlWebpackPlugin({
-          template: path.resolve(__dirname, './src/html/index.html'), 
-          filename: 'index.html', 
+          template: path.resolve(__dirname, './src/html/index.html'),
+          filename: 'index.html',
           favicon: './src/assets/icons/virus.svg',
       }),
     ]
   }
-  return config; 
+  return config;
 };
