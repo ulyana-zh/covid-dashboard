@@ -1,2 +1,7 @@
 @import "../../node_modules/normalize-scss/sass/normalize";
 @include normalize();
+
+@import "./main-styles";
+@import "./chart";
+@import "./map";
+

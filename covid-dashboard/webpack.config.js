@@ -10,7 +10,7 @@ module.exports = () => {
   const config = {
     devtool: 'inline-source-map',
     entry: {
-      main: [path.resolve(__dirname, './src/js/store.js'), './src/sass/style.scss']
+      main: [path.resolve(__dirname, './src/js/index.js'), './src/sass/style.scss']
     },
     output: {
     filename: 'script.js',
@@ -65,7 +65,7 @@ module.exports = () => {
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, './src/html/index.html'),
           filename: 'index.html',
-          favicon: './src/assets/icons/virus.svg',
+          favicon: './src/assets/icons/earth.svg',
       }),
     ]
   }
