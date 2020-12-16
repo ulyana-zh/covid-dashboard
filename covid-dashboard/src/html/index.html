@@ -16,7 +16,7 @@
     <header>
         <div class="wrapper wrapper__header">
             <div class="title">Covid Dashboard</div> 
-            <div class="today">Last update at 16.12.2020</div>
+            <div class="today">Last update at 17.12.2020</div>
         </div>
     </header>   
     <main>
@@ -32,6 +32,20 @@
                 </div>
                 <div class="chart__wrapper">
                     <canvas id="chart" class="chart"></canvas>
+                    <div class="chart__buttons">
+                        <p>
+                            <input type="radio" id="all-cases" name="chart-buttons" checked>
+                            <label for="all-cases">Daily Cases</label>
+                        </p>
+                        <p>
+                            <input type="radio" id="all-deaths" name="chart-buttons">
+                            <label for="all-deaths">Daily Deaths</label>
+                        </p>
+                       <p>
+                            <input type="radio" id="all-recovered" name="chart-buttons">
+                            <label for="all-recovered">Daily Recovered</label>
+                       </p>
+                    </div>
                 </div>
             </div>
         </div>

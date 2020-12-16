@@ -1,4 +1,4 @@
-import createChart from './Chart';
+import { createChart } from './Сhart';
 import './map';
 
 window.onload = () => {

@@ -19,7 +19,7 @@ body {
 
 .wrapper {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1400px;
     padding: 0 30px;
     display: flex;
     justify-content: space-between;
@@ -33,7 +33,7 @@ body {
 
 .wrapper__main {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 45% 55%;
     grid-template-rows: calc(100vh - 100px);
     grid-column-gap: 10px;
     grid-row-gap: 10px;

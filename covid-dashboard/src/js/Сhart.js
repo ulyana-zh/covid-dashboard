@@ -5,14 +5,19 @@ const chartWrapper = document.getElementById('chart').getContext('2d');
 async function getData() {
   const dateX = [];
   const caseY = [];
-
+  const deathsY = [];
+  const recoveredY = [];
+  
+  
   const url = 'https://disease.sh/v3/covid-19/historical/all?lastdays=366';
   const response = await fetch(url);
   const data = await response.json();
-
-  const cases = Object.values(Object.values(data)[0]);
+  
   const dates = Object.keys(Object.values(data)[0]);
-
+  const cases = Object.values(Object.values(data)[0]);
+  const deaths = Object.values(Object.values(data)[1]);
+  const recovered = Object.values(Object.values(data)[2]);
+  
   dates.forEach((date) => {
     dateX.push(date);
   });
@@ -21,7 +26,15 @@ async function getData() {
     caseY.push(elem);
   });
 
-  return { dateX, caseY };
+  deaths.forEach((death) => {
+      deathsY.push(death);
+  })
+
+  recovered.forEach((recovering) => {
+      recoveredY.push(recovering);
+  })
+
+  return { dateX, caseY, deathsY, recoveredY };
 }
 
 async function createChart() {
@@ -35,7 +48,7 @@ async function createChart() {
         label: 'Cases',
         data: data.caseY,
         fill: false,
-        backgroundColor: 'rgba(255, 99, 132, 0.9)',
+        backgroundColor: 'rgba(234,28,36,0.6)',
         borderWidth: 1,
       }],
     },
@@ -48,6 +61,9 @@ async function createChart() {
             color: 'rgba(218, 218, 218, 0.21)',
           },
           ticks: {
+            callback: function(value, index, values) {
+              return `${value / 100000}m` 
+            },
             fontColor: 'rgba(218, 218, 218, 0.80)',
             fontSize: 12,
           },
@@ -70,6 +86,7 @@ async function createChart() {
         }],
       },
       legend: {
+        display: false,
         labels: {
           fontColor: 'white',
           fontSize: 18,
@@ -78,7 +95,34 @@ async function createChart() {
 
     },
   });
+
+  const config = chart.config.data.datasets[0];
+
+  document.getElementById('all-deaths').addEventListener('click', () => {
+    config.data = data.deathsY;
+    config.backgroundColor = 'white';
+    config.label = 'Deaths';
+    chart.config.type = 'line';
+    chart.update();
+  })
+
+  document.getElementById('all-recovered').addEventListener('click', () => {
+    config.data = data.recoveredY;
+    config.backgroundColor = 'green';
+    config.label = 'Recovered';
+    chart.config.type = 'line';
+    chart.update();
+  })
+
+  document.getElementById('all-cases').addEventListener('click', () => {
+    config.data = data.caseY;
+    config.backgroundColor = 'rgba(234,28,36,0.6)';
+    config.label = 'Cases';
+    chart.config.type = 'bar';
+    chart.update();
+  })
+
   return chart;
 }
 
-export default createChart;
+export { createChart };
