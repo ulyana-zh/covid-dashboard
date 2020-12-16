@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;      
+    user-select: none;
+    font-family: 'Bebas Neue', cursive;  
+}
+
+html {
+    color: white;
+    font-size: 10px;
+}
+
+body {
+    background: url('../assets/images/dark-matter.png'), linear-gradient(to right, #414345, #232526);   
+    height: 100vh;
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 3rem;
+}
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper__header {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.wrapper__main {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: calc(100vh - 100px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(103, 103, 103, 0.306);
+    box-shadow: -1px -8px 11px 0px rgba(22, 22, 22, 0.517);
+    padding: 10px;
+}
+
+
+

@@ -29,7 +29,9 @@
     "webpack-cli": "^4.2.0"
   },
   "dependencies": {
-    "normalize-scss": "^7.0.1"
+    "chart.js": "^2.9.4",
+    "normalize-scss": "^7.0.1",
+    "regenerator-runtime": "^0.13.7"
   },
   "repository": {
     "type": "git",
