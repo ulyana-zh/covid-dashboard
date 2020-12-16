@@ -6,8 +6,10 @@
     <link href="{%=o.htmlWebpackPlugin.files.favicon%}" rel="shortcut icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <title>Covid Dashboard</title>
 </head>
 <body>
@@ -25,7 +27,9 @@
                 <div class="list__wrapper"></div>
             </div>
             <div class="column column__visual">
-                <div class="map__wrapper"></div>
+                <div class="map__wrapper">
+                  <div id="map"></div>
+                </div>
                 <div class="chart__wrapper">
                     <canvas id="chart" class="chart"></canvas>
                 </div>
