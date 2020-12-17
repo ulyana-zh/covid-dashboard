@@ -1,3 +1,5 @@
+import marker from '../assets/icons/marker.svg';
+
 const map = {
   map: null,
   mapOptions: {
@@ -60,7 +62,7 @@ const map = {
     for (let i = 0; i < dataMarkers.length; i += 1) {
       const size = (i + 1) / dataMarkers.length;
       const iconOptions = {
-        iconUrl: '../src/assets/icons/marker.svg',
+        iconUrl: './assets/marker.svg',
         iconSize: [Math.trunc(40 * size), Math.trunc(40 * size)]
       }
       const customIcon = L.icon(iconOptions);
