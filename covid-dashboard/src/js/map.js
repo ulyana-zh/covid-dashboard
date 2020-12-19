@@ -1,4 +1,9 @@
+/* eslint-disable new-cap */
+/* eslint-disable no-undef */
+/* eslint-disable no-restricted-syntax */
 import marker from '../assets/icons/marker.svg';
+import legend from '../assets/icons/legend.svg';
+import close from '../assets/icons/close.svg';
 
 const map = {
   map: null,
@@ -7,34 +12,44 @@ const map = {
     zoom: 2,
     minZoom: 2,
     maxZoom: 10,
-    worldCopyJump: true
+    worldCopyJump: true,
   },
   data: null,
+  buttonOpenLegend: null,
+  buttonCloseLegend: null,
+  legend: null,
 
   init() {
     this.map = new L.map('map', this.mapOptions);
     this.map.setMaxBounds([
       [85, 360],
-      [-85, -360]
+      [-85, -360],
     ]);
     const layer = new L.TileLayer('https://api.mapbox.com/styles/v1/rhjje/ckiovl3j355s917s7xr7f0dp3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmhqamUiLCJhIjoiY2tpb3ZrempwMWdmdjJxcGs2aXd6ZDBkZCJ9.vfPqNa2OHBkAWbQFi8RzkA');
     this.map.addLayer(layer);
 
-    fetch("https://corona.lmao.ninja/v2/countries")
+    fetch('https://corona.lmao.ninja/v2/countries')
       .then((result) => result.json())
       .then((result) => {
         this.data = result;
         map.setMarkers('cases');
       });
+
+    this.buttonOpenLegend = document.querySelector('.map-legend-button > img');
+    this.legend = document.querySelector('.map-legend-content');
+
+    this.buttonOpenLegend.addEventListener('click', () => {
+      this.legend.classList.remove('disabled');
+    });
   },
 
   setMarkers(value) {
     const dataMarkers = [];
     this.data.forEach((element) => {
-      let temp = {
+      const temp = {
         latitude: element.countryInfo.lat,
         longitude: element.countryInfo.long,
-        country: element.country
+        country: element.country,
       };
       for (const prop in element) {
         if (prop === value) {
@@ -54,7 +69,32 @@ const map = {
       return 0;
     });
 
-    let node = document.querySelector('.leaflet-marker-pane');
+    const legendMap = document.querySelector('.map-legend-content');
+    legendMap.innerHTML = `<div class="legend-title">${value[0].toUpperCase() + value.slice(1)}</div>
+    <div class="close-button">
+      <img src="assets/close.svg">
+    </div>`;
+    for (let i = dataMarkers.length; i > 0; i -= 22) {
+      const size = Math.trunc(40 * ((i + 1) / dataMarkers.length));
+      legendMap.innerHTML += `<div>
+        <div>
+          <img src="./assets/marker.svg" style="width: ${size}px; height: ${size}px;">
+        </div>
+        <span> > ${dataMarkers[i - 22].selectValue} - ${dataMarkers[i - 1].selectValue}</span>
+      </div>`;
+      if (dataMarkers[i - 22].selectValue === 0) break;
+    }
+
+    const lastSpan = document.querySelector('.map-legend-content > div:last-child > span');
+    const textFromLastSpan = lastSpan.innerText;
+    lastSpan.innerText = textFromLastSpan.slice(3);
+
+    this.buttonCloseLegend = document.querySelector('.close-button > img');
+    this.buttonCloseLegend.addEventListener('click', () => {
+      this.legend.classList.add('disabled');
+    });
+
+    const node = document.querySelector('.leaflet-marker-pane');
     while (node.firstChild) {
       node.removeChild(node.firstChild);
     }
@@ -63,8 +103,8 @@ const map = {
       const size = (i + 1) / dataMarkers.length;
       const iconOptions = {
         iconUrl: './assets/marker.svg',
-        iconSize: [Math.trunc(40 * size), Math.trunc(40 * size)]
-      }
+        iconSize: [Math.trunc(40 * size), Math.trunc(40 * size)],
+      };
       const customIcon = L.icon(iconOptions);
 
       const markerOptions = {
@@ -73,11 +113,30 @@ const map = {
         draggable: false,
         icon: customIcon,
         opacity: 0.5,
-      }
-      const marker = L.marker([dataMarkers[i].latitude, dataMarkers[i].longitude], markerOptions);
-      marker.addTo(this.map);
+      };
+      const mark = L.marker([dataMarkers[i].latitude, dataMarkers[i].longitude], markerOptions);
+      mark.addTo(this.map);
     }
   },
 };
 
 map.init();
+
+const select = {
+  selectElement: null,
+  init() {
+    this.selectElement = document.createElement('select');
+    this.selectElement.classList.add('select-map');
+    this.selectElement.innerHTML = `<option value="cases" selected>Cases</option>
+    <option value="deaths">Death</option>
+    <option value="recovered">Recovered</option>`;
+
+    this.selectElement.addEventListener('change', () => {
+      map.setMarkers(this.selectElement.value);
+    });
+
+    document.querySelector('.map__wrapper').appendChild(this.selectElement);
+  },
+};
+
+select.init();

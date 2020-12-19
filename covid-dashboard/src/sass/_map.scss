@@ -1,10 +1,107 @@
 .map__wrapper {
-    height: 55%;
-    width: 100%;
-    padding-bottom: 10px;
+  height: 55%;
+  width: 100%;
+  padding-bottom: 10px;
+  position: relative;
 }
 
 #map {
   width: 100%;
   height: 100%;
+}
+
+.map-legend {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 10px;
+  left: 50px;
+}
+
+.disabled {
+  display: none;
+}
+
+.map-legend-button {
+  width: 100%;
+  height: 100%;
+  img {
+    width: 100%;
+    height: auto;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.8);
+    }
+  }
+}
+
+.map-legend-content {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  background-color: rgb(61, 58, 58);
+  width: 220px;
+  border: 2px solid #232526;
+  text-align: center;
+  transition: .5s;
+  .legend-title {
+    display: inline;
+  }
+  div {
+    width: 100%;
+    margin-left: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+      width: 40px;
+      height: 39px;
+      img {
+        opacity: .5;
+      }
+    }
+    span {
+      font-size: 2rem;
+    }
+  }
+}
+
+.legend-title {
+  margin: 0 auto;
+  font-size: 2.4rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  left: 175px;
+  width: 30px;
+  height: 30px;
+  img {
+    width: 30px;
+    height: auto;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+.select-map {
+  font-family: "Bebas Neue", cursive;
+  position: absolute;
+  top: 10px;
+  left: 545px;
+  font-size: 2rem;
+  background-color: #3d3a3a;
+  color: #bab3b3;
+  outline: none;
 }
