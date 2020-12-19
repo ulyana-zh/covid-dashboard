@@ -82,7 +82,12 @@ const map = {
         </div>
         <span> > ${dataMarkers[i - 22].selectValue} - ${dataMarkers[i - 1].selectValue}</span>
       </div>`;
+      if (dataMarkers[i - 22].selectValue === 0) break;
     }
+
+    const lastSpan = document.querySelector('.map-legend-content > div:last-child > span');
+    const textFromLastSpan = lastSpan.innerText;
+    lastSpan.innerText = textFromLastSpan.slice(3);
 
     this.buttonCloseLegend = document.querySelector('.close-button > img');
     this.buttonCloseLegend.addEventListener('click', () => {
@@ -116,3 +121,22 @@ const map = {
 };
 
 map.init();
+
+const select = {
+  selectElement: null,
+  init() {
+    this.selectElement = document.createElement('select');
+    this.selectElement.classList.add('select-map');
+    this.selectElement.innerHTML = `<option value="cases" selected>Cases</option>
+    <option value="deaths">Death</option>
+    <option value="recovered">Recovered</option>`;
+
+    this.selectElement.addEventListener('change', () => {
+      map.setMarkers(this.selectElement.value);
+    });
+
+    document.querySelector('.map__wrapper').appendChild(this.selectElement);
+  },
+};
+
+select.init();
