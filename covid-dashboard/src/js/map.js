@@ -140,3 +140,18 @@ const select = {
 };
 
 select.init();
+
+const setDate = {
+  init() {
+    fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=366')
+      .then((result) => result.json())
+      .then((result) => {
+        const arrDates = Object.keys(result.cases);
+        const date = arrDates[arrDates.length - 1].split('/');
+        const dateDiv = document.querySelector('.today');
+        dateDiv.innerText = `Last update at ${+date[1] > 9 ? date[1] : `0${date[1]}`}.${+date[0] > 9 ? date[0] : `0${date[0]}`}.20${date[2]}`;
+      });
+  },
+};
+
+setDate.init();
