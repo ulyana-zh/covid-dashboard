@@ -1,0 +1,32 @@
+.table-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    font-size: 2rem;
+}
+
+.table-content__name {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.table-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modes-wrapper {
+    width: 100%;
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.modes-wrapper__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
