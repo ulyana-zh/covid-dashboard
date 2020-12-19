@@ -62,7 +62,7 @@ async function createChart() {
           },
           ticks: {
             callback: function(value, index, values) {
-              return `${value / 100000}m` 
+              if (index % 2 === 0) return `${value / 100000}m`
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
             fontSize: 12,
@@ -102,7 +102,12 @@ async function createChart() {
     config.data = data.deathsY;
     config.backgroundColor = 'white';
     config.label = 'Deaths';
-    chart.config.type = 'line';
+    const chartDiv = document.querySelector('.chart__wrapper');
+    // const mainDiv = document.querySelector('.full-screen-div');
+    // mainDiv.append(chartDiv);
+    chartDiv.classList.toggle('full-screen');
+    // mainDiv.classList.toggle('flex');
+    // chart.config.type = 'line';
     chart.update();
   })
 
@@ -110,7 +115,7 @@ async function createChart() {
     config.data = data.recoveredY;
     config.backgroundColor = 'green';
     config.label = 'Recovered';
-    chart.config.type = 'line';
+    // chart.config.type = 'line';
     chart.update();
   })
 

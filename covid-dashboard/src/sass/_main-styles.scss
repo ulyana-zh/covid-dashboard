@@ -39,7 +39,37 @@ body {
     grid-row-gap: 10px;
     justify-items: stretch;
     align-items: stretch;
+    width: 100%;
+    height: calc(100vh - 100px);
+    position: relative;
+
+    @media (max-width: 900px) {
+        grid-template-columns: 100%;
+        grid-template-rows: 200% 250%;
+    }
 }
+
+.full-screen-div {
+    width: 100%;
+    height: 100%;   
+    visibility: hidden;
+    position: relative;
+}
+
+.flex {
+    display: block;
+}
+
+// .table__wrapper {
+//     width: 50%;
+//     height: 50%;
+// }
+
+// .list__wrapper {
+//     width: 50%;
+//     height: 50%;
+// }
+
 
 .column {
     display: flex;
