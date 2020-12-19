@@ -15,17 +15,23 @@
 <body>
     <header>
         <div class="wrapper wrapper__header">
-            <div class="title">Covid Dashboard</div> 
+            <div class="title">Covid Dashboard</div>
             <div class="today">Last update at 17.12.2020</div>
         </div>
-    </header>   
+    </header>
     <main>
         <div class="wrapper wrapper__main">
             
             <div class="column column__data">
-                <div class="table__wrapper">
+                <div style="width: 100%;" class="table__wrapper" id="table-container"></div>
+                <div style="width: 100%;" id="list" class="list__wrapper">
+                    <hr>
+                    <select style="font-size: 2rem; margin-bottom: 5px;" name="select-mode">
+                        <option value="cases" selected>Cases</option>
+                        <option value="deaths">Deaths</option>
+                        <option value="recovered">Recovered</option>
+                    </select>
                 </div>
-                <div class="list__wrapper"></div>
             </div>
             <div class="column column__visual">
                 <div class="map__wrapper">

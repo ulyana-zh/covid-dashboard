@@ -12,6 +12,7 @@ const store = {
     switch (type) {
       case 'ALL-TIME':
         return {
+          area: data.country ? data.country : 'Global',
           cases: data.cases,
           deaths: data.deaths,
           recovered: data.recovered,
@@ -19,6 +20,7 @@ const store = {
 
       case 'TODAY':
         return {
+          area: data.country ? data.country : 'Global',
           cases: data.todayCases,
           deaths: data.todayDeaths,
           recovered: data.todayRecovered,
@@ -26,6 +28,7 @@ const store = {
 
       case 'RELATIVE-ALL-TIME':
         return {
+          area: data.country ? data.country : 'Global',
           cases: Number((data.casesPerOneMillion / 10).toFixed(3)),
           deaths: Number((data.deathsPerOneMillion / 10).toFixed(3)),
           recovered: Number((data.recoveredPerOneMillion / 10).toFixed(3)),
@@ -33,6 +36,7 @@ const store = {
 
       case 'RELATIVE-TODAY':
         return {
+          area: data.country ? data.country : 'Global',
           cases: Number((data.todayCases * RELATIVE_NUMBER / data.population).toFixed(3)),
           deaths: Number((data.todayDeaths * RELATIVE_NUMBER / data.population).toFixed(3)),
           recovered: Number((data.todayRecovered * RELATIVE_NUMBER / data.population).toFixed(3)),
@@ -71,6 +75,19 @@ const store = {
 
   getGlobalTodayRelativeData() { // возвращает промис с мировой статистикой за сегодня на 100 000
     return this._getDataForGlobal(URL_GLOBAL, 'RELATIVE-TODAY');
+  },
+
+  getAllCountriesData() {
+    return this._sendRequest(URL_COUNTRIES).then((data) => data.map((country) => (
+      {
+        id: country.countryInfo.iso3,
+        area: country.country,
+        cases: country.cases,
+        deaths: country.deaths,
+        recovered: country.recovered,
+        flag: country.countryInfo.flag,
+      }
+    )));
   },
 
   async getCountryData(id) { // возвращает промис со статистикой конкретной страны за все время
