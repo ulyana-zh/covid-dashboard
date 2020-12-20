@@ -20,15 +20,16 @@ $key-hover: #747171;
 }
 
 .keyboard {
-  width: 700px;
+  width: 600px;
   margin: 10px auto;
   padding: 10px;
+  padding-top: 30px;
   background-color: #3d3a3a;
   border: 5px solid grey;
   border-radius: 10px;
   position: absolute;
-  top: 0;
-  left: -100px;
+  top: 490px;
+  left: -565px;
 }
 
 .keyboard-off {
@@ -367,5 +368,39 @@ $key-hover: #747171;
   .key.left,
   .key.right {
     background-size: 15px;
+  }
+}
+
+.keyboard-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url('../assets/icons/keyboard.svg') 50% 50% no-repeat;
+  background-size: contain;
+  top: 292px;
+  left: 527px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.close-keyboard {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 3px;
+  left: calc(100% - 35px);
+  img {
+    width: 25px;
+    height: auto;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.9);
+    }
   }
 }

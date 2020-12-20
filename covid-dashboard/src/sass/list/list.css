@@ -3,6 +3,7 @@
     height: 200px;
     overflow: auto;
     font-size: 2rem;
+    position: relative;
 }
 
 .list-wrapper__country-block {
