@@ -52,5 +52,12 @@
 .scroll::-webkit-scrollbar-thumb {
     border-radius: 2px;
     height: 50px;
-	background-color: #243b55;
+    background-color: #243b55;
+}
+
+.search-input {
+    font-size: 2rem;
+    font-style: italic;
+    margin: 10px auto 0;
+    width: 100%;
 }

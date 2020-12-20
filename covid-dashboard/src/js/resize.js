@@ -2,6 +2,7 @@ import map from './map';
 
 const DOM = {
   mapWrapper: document.querySelector('.map__wrapper'),
+  mapContainer: document.querySelector('.map'),
   chart: document.querySelector('.chart__wrapper'),
   table: document.querySelector('.table__wrapper'),
   list: document.querySelector('.list__wrapper'),
@@ -12,7 +13,7 @@ const DOM = {
 };
 
 const {
-  mapWrapper, chart, table, list, wrapper, content, columnOne, columnTwo,
+  mapWrapper, mapContainer, chart, table, list, wrapper, content, columnOne, columnTwo,
 } = DOM;
 
 const resizeToBig = (target) => {
@@ -32,10 +33,10 @@ const resizeToSmall = (target) => {
 const addEventListenerToResizeButton = () => {
   document.body.addEventListener('click', (e) => {
     if (e.target.classList.contains('icon-resize__map')) {
-      if (!wrapper.classList.contains('visible')) {
+      if (!wrapper.classList.contains('visible')) { 
         resizeToBig(mapWrapper);
         chart.style.display = 'none';
-        mapWrapper.innerHTML = '<div class="icon-resize icon-resize__map"></div><div id=\'map\'></div>';
+        mapContainer.innerHTML = `<div id="map"></div>`;
         map.init();
       } else {
         resizeToSmall(mapWrapper);
