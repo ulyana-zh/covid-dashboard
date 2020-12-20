@@ -7,7 +7,7 @@ const map = {
     zoom: 2,
     minZoom: 2,
     maxZoom: 10,
-    worldCopyJump: true
+    worldCopyJump: true,
   },
   data: null,
 
@@ -15,12 +15,12 @@ const map = {
     this.map = new L.map('map', this.mapOptions);
     this.map.setMaxBounds([
       [85, 360],
-      [-85, -360]
+      [-85, -360],
     ]);
     const layer = new L.TileLayer('https://api.mapbox.com/styles/v1/rhjje/ckiovl3j355s917s7xr7f0dp3/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmhqamUiLCJhIjoiY2tpb3ZrempwMWdmdjJxcGs2aXd6ZDBkZCJ9.vfPqNa2OHBkAWbQFi8RzkA');
     this.map.addLayer(layer);
 
-    fetch("https://corona.lmao.ninja/v2/countries")
+    fetch('https://corona.lmao.ninja/v2/countries')
       .then((result) => result.json())
       .then((result) => {
         this.data = result;
@@ -31,10 +31,10 @@ const map = {
   setMarkers(value) {
     const dataMarkers = [];
     this.data.forEach((element) => {
-      let temp = {
+      const temp = {
         latitude: element.countryInfo.lat,
         longitude: element.countryInfo.long,
-        country: element.country
+        country: element.country,
       };
       for (const prop in element) {
         if (prop === value) {
@@ -54,7 +54,7 @@ const map = {
       return 0;
     });
 
-    let node = document.querySelector('.leaflet-marker-pane');
+    const node = document.querySelector('.leaflet-marker-pane');
     while (node.firstChild) {
       node.removeChild(node.firstChild);
     }
@@ -63,8 +63,8 @@ const map = {
       const size = (i + 1) / dataMarkers.length;
       const iconOptions = {
         iconUrl: './assets/marker.svg',
-        iconSize: [Math.trunc(40 * size), Math.trunc(40 * size)]
-      }
+        iconSize: [Math.trunc(40 * size), Math.trunc(40 * size)],
+      };
       const customIcon = L.icon(iconOptions);
 
       const markerOptions = {
@@ -73,7 +73,7 @@ const map = {
         draggable: false,
         icon: customIcon,
         opacity: 0.5,
-      }
+      };
       const marker = L.marker([dataMarkers[i].latitude, dataMarkers[i].longitude], markerOptions);
       marker.addTo(this.map);
     }
@@ -81,3 +81,5 @@ const map = {
 };
 
 map.init();
+
+export default map;

@@ -7,8 +7,7 @@ function renderModesContainer() {
   const modesWrapper = document.createElement('div');
   modesWrapper.classList.add('modes-wrapper');
 
-  modesWrapper.innerHTML =
-          '<div class="modes-wrapper__cell">'
+  modesWrapper.innerHTML = '<div class="modes-wrapper__cell">'
         + '   <p>Time period:</p>'
         + '   <div>'
         + '       <input type="radio" id="timeChoice1" name="time" value="allTime" checked>'
@@ -61,8 +60,8 @@ function renderModesContainer() {
             store.getCountryTodayRelativeData(state.currentCountry).then((data) => renderStatistics(data));
           }
       }
-    })
-  })
+    });
+  });
 
   return modesWrapper;
 }

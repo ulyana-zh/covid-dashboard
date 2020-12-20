@@ -20,38 +20,39 @@
         </div>
     </header>
     <main>
-        <div class="wrapper wrapper__main">
-            
-            <div class="column column__data">
-                <div style="width: 100%;" class="table__wrapper" id="table-container"></div>
-                <div style="width: 100%;" id="list" class="list__wrapper">
-                    <hr>
-                    <select style="font-size: 2rem; margin-bottom: 5px;" name="select-mode">
-                        <option value="cases" selected>Cases</option>
-                        <option value="deaths">Deaths</option>
-                        <option value="recovered">Recovered</option>
-                    </select>
+        <div class="wrapper wrapper__full-screen">
+            <div class="full-screen"></div>
+            <div class="wrapper wrapper__main">   
+                <div class="column column__data">
+                    <div style="width: 100%;" class="table__wrapper" id="table-container"><div class="icon-resize icon-resize__table"></div></div>
+                    <div style="width: 100%;" id="list" class="list__wrapper"><div class="icon-resize icon-resize__list"></div>
+                        <select style="font-size: 2rem; margin-bottom: 5px;" name="select-mode">
+                            <option value="cases" selected>Cases</option>
+                            <option value="deaths">Deaths</option>
+                            <option value="recovered">Recovered</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="column column__visual">
-                <div class="map__wrapper">
-                  <div id="map"></div>
-                </div>
-                <div class="chart__wrapper">
-                    <canvas id="chart" class="chart"></canvas>
-                    <div class="chart__buttons">
-                        <p>
-                            <input type="radio" id="all-cases" name="chart-buttons" checked>
-                            <label for="all-cases">Daily Cases</label>
-                        </p>
-                        <p>
-                            <input type="radio" id="all-deaths" name="chart-buttons">
-                            <label for="all-deaths">Daily Deaths</label>
-                        </p>
-                       <p>
-                            <input type="radio" id="all-recovered" name="chart-buttons">
-                            <label for="all-recovered">Daily Recovered</label>
-                       </p>
+                <div class="column column__visual">
+                    <div class="map__wrapper"><div class="icon-resize icon-resize__map"></div>
+                      <div id="map"></div>
+                    </div>
+                    <div class="chart__wrapper"><div class="icon-resize icon-resize__chart"></div>
+                        <canvas id="chart" class="chart"></canvas>
+                        <div class="chart__buttons">
+                            <p>
+                                <input type="radio" id="all-cases" name="chart-buttons" checked>
+                                <label for="all-cases">Daily Cases</label>
+                            </p>
+                            <p>
+                                <input type="radio" id="all-deaths" name="chart-buttons">
+                                <label for="all-deaths">Daily Deaths</label>
+                            </p>
+                           <p>
+                                <input type="radio" id="all-recovered" name="chart-buttons">
+                                <label for="all-recovered">Daily Recovered</label>
+                           </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,18 @@
+.list__wrapper {
+    width: 100%;
+    height: 60%;
+    overflow: hidden;
+    background-color: rgba(8, 18, 23, 0.408);
+    padding: 10px 20px;
+    position: relative;
+}
+
 .list-wrapper {
     width: 100%;
-    height: 200px;
+    height: 90%;
     overflow: auto;
     font-size: 2rem;
+    
 }
 
 .list-wrapper__country-block {
@@ -21,4 +31,26 @@
 
 .list-wrapper__country-block img {
     width: 30px;
+}
+
+.country-block__count {
+    margin-right: 20px;
+}
+
+.scroll::-webkit-scrollbar-track {
+	border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 8px;    
+    border-radius: 10px;
+    background-color: #ffffff;
+    margin-left: 20px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    height: 50px;
+	background-color: #243b55;
 }

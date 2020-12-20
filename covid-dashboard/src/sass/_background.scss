@@ -1,0 +1,23 @@
+body {  
+        background-image: url('../assets/images/dark-matter.png');
+        background: linear-gradient(-45deg, #485563, #29323c, #1c3340, #293549);  
+        height: 100vh;
+        color: white;
+        font-family: 'Work Sans', sans-serif;
+        font-size: 3rem;
+        background-size: 400% 400%;
+	    animation: gradient 15s ease infinite;
+    }
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

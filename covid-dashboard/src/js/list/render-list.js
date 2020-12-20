@@ -4,7 +4,7 @@ import '../../sass/list/list.css';
 
 function renderList(list) {
   const listWrapper = document.createElement('div');
-  listWrapper.classList.add('list-wrapper');
+  listWrapper.classList.add('list-wrapper', 'scroll');
 
   const mode = state.currentListMode;
 
@@ -16,7 +16,7 @@ function renderList(list) {
                     <img style="margin-right: 5px;" src=${country.flag}>
                     <div style="margin-right: 10px;">${country.area}</div>
                 </div>
-                <div>${country[mode]}</div>
+                <div class="country-block__count">${country[mode]}</div>
             </div>`;
 
     countryBlock.addEventListener('click', () => {

@@ -7,17 +7,16 @@ async function getData() {
   const caseY = [];
   const deathsY = [];
   const recoveredY = [];
-  
-  
+
   const url = 'https://disease.sh/v3/covid-19/historical/all?lastdays=366';
   const response = await fetch(url);
   const data = await response.json();
-  
+
   const dates = Object.keys(Object.values(data)[0]);
   const cases = Object.values(Object.values(data)[0]);
   const deaths = Object.values(Object.values(data)[1]);
   const recovered = Object.values(Object.values(data)[2]);
-  
+
   dates.forEach((date) => {
     dateX.push(date);
   });
@@ -27,14 +26,16 @@ async function getData() {
   });
 
   deaths.forEach((death) => {
-      deathsY.push(death);
-  })
+    deathsY.push(death);
+  });
 
   recovered.forEach((recovering) => {
-      recoveredY.push(recovering);
-  })
+    recoveredY.push(recovering);
+  });
 
-  return { dateX, caseY, deathsY, recoveredY };
+  return {
+    dateX, caseY, deathsY, recoveredY,
+  };
 }
 
 async function createChart() {
@@ -61,8 +62,8 @@ async function createChart() {
             color: 'rgba(218, 218, 218, 0.21)',
           },
           ticks: {
-            callback: function(value, index, values) {
-              if (index % 2 === 0) return `${value / 100000}m`
+            callback(value, index, values) {
+              if (index % 2 === 0) return `${value / 100000}m`;
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
             fontSize: 12,
@@ -102,14 +103,8 @@ async function createChart() {
     config.data = data.deathsY;
     config.backgroundColor = 'white';
     config.label = 'Deaths';
-    const chartDiv = document.querySelector('.chart__wrapper');
-    // const mainDiv = document.querySelector('.full-screen-div');
-    // mainDiv.append(chartDiv);
-    chartDiv.classList.toggle('full-screen');
-    // mainDiv.classList.toggle('flex');
-    // chart.config.type = 'line';
     chart.update();
-  })
+  });
 
   document.getElementById('all-recovered').addEventListener('click', () => {
     config.data = data.recoveredY;
@@ -117,7 +112,7 @@ async function createChart() {
     config.label = 'Recovered';
     // chart.config.type = 'line';
     chart.update();
-  })
+  });
 
   document.getElementById('all-cases').addEventListener('click', () => {
     config.data = data.caseY;
@@ -125,7 +120,7 @@ async function createChart() {
     config.label = 'Cases';
     chart.config.type = 'bar';
     chart.update();
-  })
+  });
 
   return chart;
 }
