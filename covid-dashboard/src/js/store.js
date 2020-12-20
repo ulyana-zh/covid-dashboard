@@ -1,6 +1,7 @@
 const URL_GLOBAL = 'https://disease.sh/v3/covid-19/all';
 const URL_COUNTRIES = 'https://disease.sh/v3/covid-19/countries';
 const RELATIVE_NUMBER = 100000;
+const MILLISECONDS_OF_ONE_DAY = 86400000;
 
 const store = {
   async _sendRequest(url) {
@@ -115,6 +116,16 @@ const store = {
       lat: data.countryInfo.lat,
       long: data.countryInfo.long,
     }));
+  },
+
+  getHistoricalGlobalData() { // возвращает промис с архивными данными начиная с 15 апреля 2020
+    const startPointDate = new Date('2020-04-15T00:00:00');
+    const todayDate = new Date();
+
+    const daysCount = Math.floor((todayDate.getTime() - startPointDate.getTime()) / MILLISECONDS_OF_ONE_DAY);
+    const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=${daysCount}`;
+
+    return fetch(url).then(response => response.json());
   },
 };
 
