@@ -1,7 +1,7 @@
 * {
-    box-sizing: border-box;      
+    box-sizing: border-box;
     user-select: none;
-    font-family: 'Bebas Neue', cursive;  
+    font-family: 'Bebas Neue', cursive;
 }
 
 html {
@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    background: url('../assets/images/dark-matter.png'), linear-gradient(to right, #414345, #232526);   
+    background: url('../assets/images/dark-matter.png'), linear-gradient(to right, #414345, #232526);
     height: 100vh;
     color: white;
     font-family: 'Work Sans', sans-serif;
@@ -45,7 +45,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
     background-color: rgba(103, 103, 103, 0.306);
     box-shadow: -1px -8px 11px 0px rgba(22, 22, 22, 0.517);
     padding: 10px;
