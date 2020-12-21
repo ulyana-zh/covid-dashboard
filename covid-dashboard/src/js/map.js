@@ -132,8 +132,21 @@ const map = {
         draggable: false,
         icon: customIcon,
         opacity: 0.5,
+        alt: `${dataMarkers[i].country}`,
       };
       const mark = L.marker([dataMarkers[i].latitude, dataMarkers[i].longitude], markerOptions);
+      mark.addEventListener('click', (event) => {
+        document.querySelector('.search-input').value = event.target.options.alt;
+        document.querySelector('.search-input').focus();
+        this.data.forEach((element) => {
+          if (element.country === event.target.options.alt) {
+            setTimeout(() => {
+              const country = document.querySelector('.list-wrapper__country-block');
+              country.click();
+            }, 50);
+          }
+        });
+      });
       mark.addTo(this.map);
     }
   },
