@@ -16,9 +16,8 @@
 .resize {
     height: 100% !important;
     width: 100%;
-    background-color: rgba(103, 103, 103, 0.306);
     box-shadow: -1px -4px 16px 0px rgba(9, 13, 35, 0.517);
-    padding: 10px;
+    border: 10px solid rgba(211, 211, 211, 0.183);    // padding: 10px;
 }
 
 .visible {
@@ -31,17 +30,17 @@
 }
 
 .icon-resize {
-    background-image: url('../assets/icons/full-screen.svg');
+    background-image: url('../assets/icons/full-screen.png');
     background-size: cover;
-    width: 12px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -5px;
+    right: -5px;
     z-index: 1;
     cursor: pointer;
 }
 
 .icon-close {
-    background-image: url('../assets/icons/close-full-screen.svg');
+    background-image: url('../assets/icons/close.png');
 }

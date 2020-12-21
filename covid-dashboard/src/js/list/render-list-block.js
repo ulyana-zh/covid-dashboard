@@ -18,8 +18,6 @@ function renderListBlock() {
     });
   });
 
-  //
-
   const searchInput = document.querySelector('#search-country');
   searchInput.classList.add('search-input');
   searchInput.addEventListener('input', () => {

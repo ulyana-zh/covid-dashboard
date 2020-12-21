@@ -3,8 +3,12 @@ import renderStatistics from '../table/render-statistics';
 import '../../sass/list/list.css';
 
 function renderList(list) {
+  const listContainer = document.createElement('div');
+  listContainer.classList.add('list-container');
+
   const listWrapper = document.createElement('div');
   listWrapper.classList.add('list-wrapper', 'scroll');
+  listContainer.append(listWrapper);
 
   const mode = state.currentListMode;
 
@@ -30,7 +34,7 @@ function renderList(list) {
     listWrapper.append(countryBlock);
   });
 
-  return listWrapper;
+  return listContainer;
 }
 
 export default renderList;

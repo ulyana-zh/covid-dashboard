@@ -10,10 +10,11 @@ const DOM = {
   content: document.querySelector('.wrapper__main'),
   columnOne: document.querySelector('.column__data'),
   columnTwo: document.querySelector('.column__visual'),
+  icon: document.querySelectorAll('.icon-resize'),
 };
 
 const {
-  mapWrapper, mapContainer, chart, table, list, wrapper, content, columnOne, columnTwo,
+  mapWrapper, mapContainer, chart, table, list, wrapper, content, columnOne, columnTwo, icon
 } = DOM;
 
 const resizeToBig = (target) => {
@@ -21,6 +22,9 @@ const resizeToBig = (target) => {
   content.classList.add('none-visible');
   wrapper.classList.add('visible');
   wrapper.append(target);
+  icon.forEach(icon => {
+      icon.classList.add('icon-close');
+  })
 };
 
 const resizeToSmall = (target) => {
@@ -28,6 +32,9 @@ const resizeToSmall = (target) => {
   chart.style.display = 'flex';
   wrapper.classList.remove('visible');
   content.classList.remove('none-visible');
+  icon.forEach(icon => {
+    icon.classList.remove('icon-close');
+})
 };
 
 const addEventListenerToResizeButton = () => {

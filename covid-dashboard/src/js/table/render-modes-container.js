@@ -18,7 +18,7 @@ function renderModesContainer() {
         + '   </div>'
         + '</div>'
         + ''
-        + '<div class="modes-wrapper__cell" style="margin-left: 20px;">'
+        + '<div class="modes-wrapper__cell">'
         + '   <p>Range of values:</p>'
         + '   <div>'
         + '       <input type="radio" id="rangeChoice1" name="range" value="absolute" checked>'
