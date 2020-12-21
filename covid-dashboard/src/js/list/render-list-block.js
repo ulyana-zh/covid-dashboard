@@ -22,14 +22,17 @@ function renderListBlock() {
 
   const searchInput = document.querySelector('#search-country');
   searchInput.classList.add('search-input');
-  searchInput.addEventListener('input', () => {
+  searchInput.addEventListener('input', searchHandler);
+  searchInput.addEventListener('focus', searchHandler);
+
+  function searchHandler() {
     list.removeChild(list.lastChild)
     store.getAllCountriesData().then((data) => {
       const searchRequest = searchInput.value;
       const searchedList = data.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()) );
       list.append(renderList(searchedList));
     });
-  })
+  }
 }
 
 export default renderListBlock;
