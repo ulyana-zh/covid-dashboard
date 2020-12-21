@@ -14,7 +14,7 @@ function renderListBlock() {
     state.currentListMode = event.currentTarget.value;
     list.removeChild(list.lastChild);
     store.getAllCountriesData().then((data) => {
-      list.append(renderList(state.searchedList));
+      list.append(renderList(state.searchedList ? state.searchedList : data));
     });
   });
 
