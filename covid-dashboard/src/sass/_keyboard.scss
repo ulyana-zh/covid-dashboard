@@ -1,7 +1,7 @@
-$key: #585858;
+$key: #a0a0a0;
 $key-hover: #747171;
 
-// * {
+// * {  
 //   padding: 0;
 //   margin: 0;
 //   font-size: 10px;
@@ -20,16 +20,26 @@ $key-hover: #747171;
 }
 
 .keyboard {
-  width: 600px;
-  margin: 10px auto;
+  max-width: 600px;
+  width: 110%;
   padding: 10px;
-  padding-top: 30px;
-  background-color: #3d3a3a;
-  border: 5px solid grey;
-  border-radius: 10px;
+  background-color: #c4c4c4;
   position: absolute;
-  top: 490px;
-  left: -565px;
+  left: 350px;
+  top: 70px;
+  z-index: 2;
+  cursor: move;
+  border-radius: 10px;
+
+  @media (max-width: 900px) {
+    left: 50px;
+    top: 100px; 
+  }
+  @media (max-width: 750px) {
+    width: 100%;
+    left: 0px;
+    top: 100px; 
+  }
 }
 
 .keyboard-off {
@@ -50,10 +60,9 @@ $key-hover: #747171;
   font-size: 2rem;
   text-align: center;
   width: 6.5%;
-  height: 40px;
+  height: 35px;
   cursor: pointer;
-  margin: 3px;
-  border: 1px solid grey;
+  margin: 2px;
   background-color: $key;
   border-radius: 5px;
   user-select: none;
@@ -68,7 +77,7 @@ $key-hover: #747171;
 }
 
 .key span {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
 }
 
 .side-key,
@@ -90,7 +99,7 @@ $key-hover: #747171;
   display: flex;
   justify-content: center;
   background: url('../assets/icons/delete.svg') no-repeat 50% 50%;
-  background-size: 30px;
+  background-size: 20px;
   background-color: $key;
 
   &:hover {
@@ -150,7 +159,7 @@ $key-hover: #747171;
 
 .key.tab {
   background: url('../assets/icons/tab.svg') no-repeat 85% 50%;
-  background-size: 20px;
+  background-size: 10px;
   background-color: $key;
 
   &:hover {
@@ -176,7 +185,7 @@ $key-hover: #747171;
 
 .key.enter {
   background: url('../assets/icons/enter.svg') no-repeat 80% 50%;
-  background-size: 20px;
+  background-size: 15px;
   background-color: $key;
 
   &:hover {
@@ -237,28 +246,25 @@ $key-hover: #747171;
 }
 
 @media screen and (max-width: 959px) {
-  .key {
-    width: 6.5%;
-    height: 50px;
-    cursor: pointer;
-    margin: 3px;
-    border: 1px solid grey;
-    background-color: $key;
-    border-radius: 5px;
-    user-select: none;
-  }
+  // .key {
+  //   margin: 3px;
+  //   border: 1px solid grey;
+  //   background-color: $key;
+  //   border-radius: 5px;
+  //   user-select: none;
+  // }
 
-  .key span {
-    font-size: 1.8rem;
-  }
+  // .key span {
+  //   font-size: 1.8rem;
+  // }
 
-  .key span.side-key {
-    font-size: 1.5rem;
-  }
+  // .key span.side-key {
+  //   font-size: 1.5rem;
+  // }
 
-  .key.backspace {
-    background-size: 35px;
-  }
+  // .key.backspace {
+  //   background-size: 35px;
+  // }
 
   .key.up,
   .key.down,
@@ -298,78 +304,78 @@ $key-hover: #747171;
   }
 }
 
-@media screen and (max-width: 767px) {
-  .keyboard {
-    margin: 10px auto;
-    padding: 5px;
-  }
+// @media screen and (max-width: 767px) {
+//   .keyboard {
+//     margin: 10px auto;
+//     padding: 5px;
+//   }
 
-  .key {
-    margin: 1.5px;
-    height: 45px;
-  }
+//   .key {
+//     margin: 1.5px;
+//     height: 45px;
+//   }
 
-  .key span {
-    font-size: 1.5rem;
-  }
+//   .key span {
+//     font-size: 1.5rem;
+//   }
 
-  .key span.side-key,
-  .key span.side-key-rus {
-    font-size: 1.4rem;
-  }
+//   .key span.side-key,
+//   .key span.side-key-rus {
+//     font-size: 1.4rem;
+//   }
 
-  .key.enter {
-    background: url('../assets/icons/enter.svg') no-repeat 50% 50%;
-    background-size: 25px;
-    background-color: $key;
+//   .key.enter {
+//     background: url('../assets/icons/enter.svg') no-repeat 50% 50%;
+//     background-size: 25px;
+//     background-color: $key;
 
-    &:hover {
-      background-color: $key-hover;
-    }
-  }
+//     &:hover {
+//       background-color: $key-hover;
+//     }
+//   }
 
-  .key.enter span,
-  .key.tab span,
-  .key.shift span {
-    font-size: 0;
-  }
+//   .key.enter span,
+//   .key.tab span,
+//   .key.shift span {
+//     font-size: 0;
+//   }
 
-  .key.backspace {
-    background-size: 25px;
-  }
+//   .key.backspace {
+//     background-size: 25px;
+//   }
 
-  .key.tab {
-    background: url('../assets/icons/tab.svg') no-repeat 50% 50%;
-    background-size: 20px;
-    background-color: $key;
+//   .key.tab {
+//     background: url('../assets/icons/tab.svg') no-repeat 50% 50%;
+//     background-size: 20px;
+//     background-color: $key;
 
-    &:hover {
-      background-color: $key-hover;
-    }
-  }
+//     &:hover {
+//       background-color: $key-hover;
+//     }
+//   }
 
-  .key.shift {
-    background: url('../assets/icons/up.svg') no-repeat 50% 50%;
-    background-size: 20px;
-    background-color: $key;
+//   .key.shift {
+//     background: url('../assets/icons/up.svg') no-repeat 50% 50%;
+//     background-size: 20px;
+//     background-color: $key;
 
-    &:hover {
-      background-color: $key-hover;
-    }
-  }
+//     &:hover {
+//       background-color: $key-hover;
+//     }
+//   }
 
-  .key.capslock span,
-  .key.delete span {
-    font-size: 1.4rem;
-  }
+//   .key.capslock span,
+//   .key.delete span {
+//     font-size: 1.4rem;
+//   }
 
-  .key.up,
-  .key.down,
-  .key.left,
-  .key.right {
-    background-size: 15px;
-  }
-}
+//   .key.up,
+//   .key.down,
+//   .key.left,
+//   .key.right {
+//     background-size: 15px;
+//   }
+// }
 
 .keyboard-icon {
   position: absolute;
@@ -377,8 +383,7 @@ $key-hover: #747171;
   height: 30px;
   background: url('../assets/icons/keyboard.svg') 50% 50% no-repeat;
   background-size: contain;
-  top: 292px;
-  left: 527px;
+  right: 30px;
   &:hover {
     cursor: pointer;
   }
@@ -388,13 +393,13 @@ $key-hover: #747171;
 }
 
 .close-keyboard {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   position: absolute;
-  top: 3px;
-  left: calc(100% - 35px);
+  top: -9px;
+  right: -3px;
   img {
-    width: 25px;
+    width: 20px;
     height: auto;
     &:hover {
       cursor: pointer;

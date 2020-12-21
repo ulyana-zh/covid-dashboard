@@ -16,47 +16,49 @@
     <header>
         <div class="wrapper wrapper__header">
             <div class="title">Covid Dashboard</div>
-            <div class="today">Last update at 17.12.2020</div>
+            <div class="today"></div>
         </div>
     </header>
     <main>
-        <div class="wrapper wrapper__main">
-            <div class="column column__data">
-                <div style="width: 100%;" class="table__wrapper" id="table-container"></div>
-                <div style="width: 100%;" id="list" class="list__wrapper">
-                    <input class="search-input" placeholder="Find country" id="search-country" type="text">
+        <div class="wrapper wrapper__full-screen">
+            <div class="full-screen"></div>
+            <div class="wrapper wrapper__main">   
+                <div class="column column__data">
+                    <div style="width: 100%;" class="table__wrapper" id="table-container"><div class="icon-resize icon-resize__table"></div></div>
+                    <div style="width: 100%;" id="list" class="list__wrapper"><div class="icon-resize icon-resize__list"></div>
+                    <input class="search-input" placeholder="search country" id="search-country" type="text">
                     <div class="keyboard-icon"></div>
-                    <hr>
-                    <select style="font-size: 2rem; margin-bottom: 5px;" name="select-mode">
+                    <select class="list__select" name="select-mode">
                         <option value="cases" selected>Cases</option>
                         <option value="deaths">Deaths</option>
                         <option value="recovered">Recovered</option>
                     </select>
+                    </div>
                 </div>
-            </div>
-            <div class="column column__visual">
-                <div class="map__wrapper">
-                  <div id="map"></div>
-                  <div class="map-legend">
-                    <div class="map-legend-button"><img src="assets/legend.svg" alt=""></div>
-                    <div class="map-legend-content disabled"></div>
-                  </div>
-                </div>
-                <div class="chart__wrapper">
-                    <canvas id="chart" class="chart"></canvas>
-                    <div class="chart__buttons">
-                        <p>
-                            <input type="radio" id="all-cases" name="chart-buttons" checked>
-                            <label for="all-cases">Daily Cases</label>
-                        </p>
-                        <p>
-                            <input type="radio" id="all-deaths" name="chart-buttons">
-                            <label for="all-deaths">Daily Deaths</label>
-                        </p>
-                       <p>
-                            <input type="radio" id="all-recovered" name="chart-buttons">
-                            <label for="all-recovered">Daily Recovered</label>
-                       </p>
+                <div class="column column__visual">
+                    <div class="map__wrapper"><div class="icon-resize icon-resize__map"></div>
+                      <div class="map"><div id="map"></div></div>
+                        <div class="map-legend">
+                          <div class="map-legend-button"><img src="assets/legend.svg" alt=""></div>
+                          <div class="map-legend-content disabled"></div>
+                        </div>
+                    </div>
+                    <div class="chart__wrapper"><div class="icon-resize icon-resize__chart"></div>
+                        <canvas id="chart" class="chart"></canvas>
+                        <div class="chart__buttons">
+                            <p>
+                                <input type="radio" id="all-cases" name="chart-buttons" checked>
+                                <label for="all-cases">Daily Cases</label>
+                            </p>
+                            <p>
+                                <input type="radio" id="all-deaths" name="chart-buttons">
+                                <label for="all-deaths">Daily Deaths</label>
+                            </p>
+                           <p>
+                                <input type="radio" id="all-recovered" name="chart-buttons">
+                                <label for="all-recovered">Daily Recovered</label>
+                           </p>
+                        </div>
                     </div>
                 </div>
             </div>

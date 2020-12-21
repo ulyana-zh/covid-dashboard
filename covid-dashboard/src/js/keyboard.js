@@ -33,12 +33,12 @@ const keyboard = {
   switchKeyboard: null,
 
   init() {
-    this.constainer = document.querySelector('.map__wrapper');
+    this.constainer = document.querySelector('.list__wrapper');
     const keyboardDiv = document.createElement('div');
     keyboardDiv.classList.add('keyboard', 'keyboard-off');
     keyboardDiv.setAttribute('draggable', true);
     keyboardDiv.innerHTML = `<div class="close-keyboard">
-      <img src="assets/close.svg">
+      <img src="assets/close.png">
     </div>`;
     for (let i = 0; i < this.sideKeys.length; i += 1) {
       const row = document.createElement('div');
