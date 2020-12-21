@@ -48,6 +48,12 @@
     align-items: center;  
 }
 
+.table-content__cases:hover,
+.table-content__deaths:hover,
+.table-content__recovered:hover {
+    background-color: #0d151990;
+}
+
 .modes-wrapper {
     width: 100%;
     height: 40%;
@@ -64,3 +70,9 @@
     align-items: center;
     justify-content: center;
 }
+
+.modes-wrapper__cell > div > input,
+.modes-wrapper__cell > div > label {
+    cursor: pointer;
+}
+

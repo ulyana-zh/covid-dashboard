@@ -20,6 +20,7 @@
     height: 100%;
     overflow: auto;
     font-size: 2rem;
+    position: relative;
 }
 
 .list-wrapper__country-block {
@@ -99,4 +100,5 @@
     width: 30%;
     font-family: 'Bebas Neue', cursive;
     cursor: pointer;
+    position: relative;
 }

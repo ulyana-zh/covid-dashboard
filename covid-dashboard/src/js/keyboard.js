@@ -30,12 +30,16 @@ const keyboard = {
   shiftActive: false,
   languageEnglish: true,
   capslock: null,
+  switchKeyboard: null,
 
   init() {
-    this.constainer = document.querySelector('.map__wrapper');
+    this.constainer = document.querySelector('.list__wrapper');
     const keyboardDiv = document.createElement('div');
-    keyboardDiv.classList.add('keyboard');
+    keyboardDiv.classList.add('keyboard', 'keyboard-off');
     keyboardDiv.setAttribute('draggable', true);
+    keyboardDiv.innerHTML = `<div class="close-keyboard">
+      <img src="assets/close.png">
+    </div>`;
     for (let i = 0; i < this.sideKeys.length; i += 1) {
       const row = document.createElement('div');
       switch (i) {
@@ -99,16 +103,9 @@ const keyboard = {
       keyboardDiv.appendChild(row);
     }
 
-    // create input field
-    const input = document.createElement('div');
-    input.classList.add('search');
-    this.textarea = document.createElement('input');
-    this.textarea.classList.add('search');
-    this.textarea.setAttribute('type', 'search');
-    input.appendChild(this.textarea);
+    this.textarea = document.querySelector('.search-input');
 
     this.constainer.appendChild(keyboardDiv);
-    this.constainer.appendChild(input);
     // create language button
     this.buttonLanguage = document.querySelector('.key.win');
     const spanRus = document.createElement('span');
@@ -208,7 +205,13 @@ const keyboard = {
         }
       });
     });
-
+    this.switchKeyboard = document.querySelector('.keyboard-icon');
+    this.switchKeyboard.addEventListener('click', () => {
+      keyboardDiv.classList.toggle('keyboard-off');
+    });
+    document.querySelector('.close-keyboard > img').addEventListener('click', () => {
+      keyboardDiv.classList.add('keyboard-off');
+    });
     this.dragAndDrop(keyboardDiv);
   },
 

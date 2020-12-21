@@ -75,7 +75,7 @@ const map = {
       <img src="assets/close.svg">
     </div>`;
     for (let i = dataMarkers.length; i > 0; i -= 22) {
-      const size = Math.trunc(40 * ((i + 1) / dataMarkers.length));
+      const size = Math.trunc(25 * ((i + 1) / dataMarkers.length));
       legendMap.innerHTML += `<div>
         <div>
           <img src="./assets/marker.svg" style="width: ${size}px; height: ${size}px;">
