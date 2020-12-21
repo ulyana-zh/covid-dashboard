@@ -6,6 +6,8 @@ function renderList(list) {
   const listWrapper = document.createElement('div');
   listWrapper.classList.add('list-wrapper');
 
+  const inputField = document.querySelector('.search-input');
+
   const mode = state.currentListMode;
 
   list.sort((a, b) => b[mode] - a[mode]);
@@ -25,6 +27,7 @@ function renderList(list) {
       timeChoice1.checked = true;
       rangeChoice1.checked = true;
       renderStatistics(country);
+      inputField.value = country.area;
     });
 
     listWrapper.append(countryBlock);
