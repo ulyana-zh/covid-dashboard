@@ -2,6 +2,7 @@ import store from '../store';
 import state from '../state';
 import renderList from './render-list';
 import '../../sass/list/list.css';
+import renderStatistics from "../table/render-statistics";
 
 function renderListBlock() {
   const list = document.querySelector('#list');
@@ -24,6 +25,11 @@ function renderListBlock() {
   searchInput.addEventListener('focus', searchHandler);
 
   function searchHandler() {
+    if (searchInput.value === '') {
+      store.getGlobalData().then((data) => {
+        renderStatistics(data);
+      });
+    }
     list.removeChild(list.lastChild)
     store.getAllCountriesData().then((data) => {
       const searchRequest = searchInput.value;
