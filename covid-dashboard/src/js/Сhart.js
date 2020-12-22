@@ -144,6 +144,12 @@ async function createChart() {
   const config = chart.config.data.datasets[0];
   changeChartToGlobalData(config, chart);
 
+  const input = document.querySelector('.search-input');
+  const country = document.querySelector('#tableArea');
+  document.body.addEventListener('click', () => {
+    console.log(country.innerText);
+  })
+
   return chart;
 }
 
