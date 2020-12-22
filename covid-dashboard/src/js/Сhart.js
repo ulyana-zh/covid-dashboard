@@ -1,60 +1,97 @@
+import store from './store';
+
 const regeneratorRuntime = require('regenerator-runtime');
 
-const chartWrapper = document.getElementById('chart').getContext('2d');
+const createDataArrayForEachDay = (data) => {
+  const targetArray = [];
+  for (let i = 0; i < data.length - 1; i++) {
+    targetArray[i] = data[i + 1] - data[i];
+  }
+  return targetArray;
+};
 
-async function getData() {
-  const dateX = [];
-  const caseY = [];
-  const deathsY = [];
-  const recoveredY = [];
+async function getGlobalData() {
+  // Cumulative
+  const dates = [];
+  const cases = [];
+  const deaths = [];
+  const recovered = [];
 
-  const url = 'https://disease.sh/v3/covid-19/historical/all?lastdays=366';
-  const response = await fetch(url);
-  const data = await response.json();
+  const data = await store.getHistoricalGlobalRates();
 
-  const dates = Object.keys(Object.values(data)[0]);
-  const cases = Object.values(Object.values(data)[0]);
-  const deaths = Object.values(Object.values(data)[1]);
-  const recovered = Object.values(Object.values(data)[2]);
+  data.dates.forEach((el) => dates.push(el));
+  data.cases.forEach((el) => cases.push(el));
+  data.deaths.forEach((el) => deaths.push(el));
+  data.recovered.forEach((el) => recovered.push(el));
 
-  dates.forEach((date) => {
-    dateX.push(date);
-  });
-
-  cases.forEach((elem) => {
-    caseY.push(elem);
-  });
-
-  deaths.forEach((death) => {
-    deathsY.push(death);
-  });
-
-  recovered.forEach((recovering) => {
-    recoveredY.push(recovering);
-  });
+  // Each Day
+  const casesDay = createDataArrayForEachDay(cases).filter((el) => el < 1000000);
+  const deathsDay = createDataArrayForEachDay(deaths);
+  const recoveredDay = createDataArrayForEachDay(recovered).filter((el) => el > 0 && el < 1000000);
 
   return {
-    dateX, caseY, deathsY, recoveredY,
+    dates, cases, deaths, recovered, casesDay, deathsDay, recoveredDay,
   };
 }
 
+async function getDataForCountry(country) {
+  // Cumulative
+  const cases = [];
+  const deaths = [];
+  const recovered = [];
+
+  const data = await store.getRatesForEachCountry(country);
+
+  data.cases.forEach((el) => cases.push(el));
+  data.deaths.forEach((death) => deaths.push(death));
+  data.recovered.forEach((recover) => recovered.push(recover));
+
+  // Each day
+  const casesDay = createDataArrayForEachDay(cases);
+  const deathsDay = createDataArrayForEachDay(deaths);
+  const recoveredDay = createDataArrayForEachDay(recovered);
+
+  return {
+    cases, deaths, recovered, casesDay, deathsDay, recoveredDay,
+  };
+}
+
+const changeChartToCases = (config, chart) => {
+  config.backgroundColor = 'rgba(234,28,36,0.6)';
+  config.label = 'Cases';
+  chart.config.type = 'bar';
+  chart.update();
+};
+
+const changeChartToDeaths = (config, chart) => {
+  config.backgroundColor = 'white';
+  config.label = 'Deaths';
+  chart.config.type = 'bar';
+  chart.update();
+};
+
+const changeChartToRecovered = (config, chart) => {
+  config.backgroundColor = 'green';
+  config.label = 'Recovered';
+  chart.config.type = 'bar';
+  chart.update();
+};
+
 async function createChart() {
-  const data = await getData();
-  const chart = new Chart(chartWrapper, {
+  const chartWrapper = document.getElementById('chart').getContext('2d');
+  const globalData = await getGlobalData();
+  const chartConfig = {
     type: 'bar',
-    scaleFontColor: 'red',
     data: {
-      labels: data.dateX,
+      labels: globalData.dates,
       datasets: [{
         label: 'Cases',
-        data: data.caseY,
-        fill: false,
+        data: globalData.cases,
         backgroundColor: 'rgba(234,28,36,0.6)',
         borderWidth: 1,
       }],
     },
     options: {
-
       scales: {
         yAxes: [{
           beginAtZero: true,
@@ -62,10 +99,11 @@ async function createChart() {
             color: 'rgba(218, 218, 218, 0.21)',
           },
           ticks: {
-            callback(value, index, values) {
-              if (index % 2 === 0) return `${value / 100000}m`;
+            callback(value, index) {
+              if (index % 1 === 0) return `${value / 100000}m`;
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
+            fontFamily: 'Bebas Neue',
             fontSize: 12,
           },
         }],
@@ -78,10 +116,12 @@ async function createChart() {
             stepSize: 2,
           },
           gridLines: {
-            display: false,
+            color: 'rgba(218, 218, 218, 0.21)',
+            borderDash: [10],
           },
           ticks: {
             fontColor: 'rgba(218, 218, 218, 0.80)',
+            fontFamily: 'Bebas Neue',
             fontSize: 12,
           },
         }],
@@ -95,34 +135,47 @@ async function createChart() {
       },
 
     },
-  });
+  };
+  const chart = new Chart(chartWrapper, chartConfig);
 
   const config = chart.config.data.datasets[0];
-
-  document.getElementById('all-deaths').addEventListener('click', () => {
-    config.data = data.deathsY;
-    config.backgroundColor = 'white';
-    config.label = 'Deaths';
-    chart.update();
-  });
-
-  document.getElementById('all-recovered').addEventListener('click', () => {
-    config.data = data.recoveredY;
-    config.backgroundColor = 'green';
-    config.label = 'Recovered';
-    // chart.config.type = 'line';
-    chart.update();
-  });
-
-  document.getElementById('all-cases').addEventListener('click', () => {
-    config.data = data.caseY;
-    config.backgroundColor = 'rgba(234,28,36,0.6)';
-    config.label = 'Cases';
-    chart.config.type = 'bar';
-    chart.update();
-  });
+  changeChart(config, chart);
 
   return chart;
 }
 
-export { createChart };
+async function changeChart(config, chart) {
+  const globalData = await getGlobalData();
+  const inputs = document.querySelector('main');
+
+  inputs.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', () => {
+      if (timeChoice1.checked && allCases.checked) {
+        config.data = globalData.cases;
+        changeChartToCases(config, chart);
+      }
+      if (timeChoice1.checked && allDeaths.checked) {
+        config.data = globalData.deaths;
+        changeChartToDeaths(config, chart);
+      }
+      if (timeChoice1.checked && allRecovered.checked) {
+        config.data = globalData.recovered;
+        changeChartToRecovered(config, chart);
+      }
+      if (timeChoice2.checked && allCases.checked) {
+        config.data = globalData.casesDay;
+        changeChartToCases(config, chart);
+      }
+      if (timeChoice2.checked && allDeaths.checked) {
+        config.data = globalData.deathsDay;
+        changeChartToDeaths(config, chart);
+      }
+      if (timeChoice2.checked && allRecovered.checked) {
+        config.data = globalData.recoveredDay;
+        changeChartToRecovered(config, chart);
+      }
+    });
+  });
+}
+
+export { createChart, changeChart };

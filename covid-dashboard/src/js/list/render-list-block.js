@@ -24,10 +24,10 @@ function renderListBlock() {
   searchInput.addEventListener('focus', searchHandler);
 
   function searchHandler() {
-    list.removeChild(list.lastChild)
+    list.removeChild(list.lastChild);
     store.getAllCountriesData().then((data) => {
       const searchRequest = searchInput.value;
-      const searchedList = data.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()) );
+      const searchedList = data.filter((country) => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
       list.append(renderList(searchedList));
     });
   }

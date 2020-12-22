@@ -1,4 +1,4 @@
-import { createChart } from './Сhart';
+import { createChart, changeChart } from './Сhart';
 import renderTableBlock from './table/render-table-block';
 import renderListBlock from './list/render-list-block';
 import './map';

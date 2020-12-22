@@ -14,7 +14,7 @@ const DOM = {
 };
 
 const {
-  mapWrapper, mapContainer, chart, table, list, wrapper, content, columnOne, columnTwo, icon
+  mapWrapper, mapContainer, chart, table, list, wrapper, content, columnOne, columnTwo, icon,
 } = DOM;
 
 const resizeToBig = (target) => {
@@ -22,9 +22,9 @@ const resizeToBig = (target) => {
   content.classList.add('none-visible');
   wrapper.classList.add('visible');
   wrapper.append(target);
-  icon.forEach(icon => {
-      icon.classList.add('icon-close');
-  })
+  icon.forEach((icon) => {
+    icon.classList.add('icon-close');
+  });
 };
 
 const resizeToSmall = (target) => {
@@ -32,18 +32,18 @@ const resizeToSmall = (target) => {
   chart.style.display = 'flex';
   wrapper.classList.remove('visible');
   content.classList.remove('none-visible');
-  icon.forEach(icon => {
+  icon.forEach((icon) => {
     icon.classList.remove('icon-close');
-})
+  });
 };
 
 const addEventListenerToResizeButton = () => {
   document.body.addEventListener('click', (e) => {
     if (e.target.classList.contains('icon-resize__map')) {
-      if (!wrapper.classList.contains('visible')) { 
+      if (!wrapper.classList.contains('visible')) {
         resizeToBig(mapWrapper);
         chart.style.display = 'none';
-        mapContainer.innerHTML = `<div id="map"></div>`;
+        mapContainer.innerHTML = '<div id="map"></div>';
         map.init();
       } else {
         resizeToSmall(mapWrapper);

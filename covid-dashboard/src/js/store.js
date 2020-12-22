@@ -1,5 +1,6 @@
 const URL_GLOBAL = 'https://disease.sh/v3/covid-19/all';
 const URL_COUNTRIES = 'https://disease.sh/v3/covid-19/countries';
+const URL_COUNTRY = 'https://api.covid19api.com/total/country/';
 const RELATIVE_NUMBER = 100000;
 const MILLISECONDS_OF_ONE_DAY = 86400000;
 
@@ -125,7 +126,31 @@ const store = {
     const daysCount = Math.floor((todayDate.getTime() - startPointDate.getTime()) / MILLISECONDS_OF_ONE_DAY);
     const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=${daysCount}`;
 
-    return fetch(url).then(response => response.json());
+    return fetch(url).then((response) => response.json());
+  },
+
+  getHistoricalGlobalRates() {
+    return this.getHistoricalGlobalData().then((data) => ({
+      dates: Object.keys(data.cases),
+      cases: Object.values(data.cases),
+      deaths: Object.values(data.deaths),
+      recovered: Object.values(data.recovered),
+    }));
+  },
+
+  getAllRatesForEachCountry(country) {
+    const startPointDate = new Date('2020-04-15T00:00:00');
+
+    const url = `${URL_COUNTRY}${country}`;
+    return fetch(url).then((response) => response.json()).then((data) => data.filter((country) => new Date(country.Date) > startPointDate).sort());
+  },
+
+  getRatesForEachCountry(country) {
+    return this.getAllRatesForEachCountry(country).then((data) => ({
+      cases: data.map((country) => country.Confirmed),
+      deaths: data.map((country) => country.Deaths),
+      recovered: data.map((country) => country.Recovered),
+    }));
   },
 };
 
