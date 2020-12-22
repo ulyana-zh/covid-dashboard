@@ -5,7 +5,7 @@ const state = {
   searchValue: '',
   searchedList: null,
   currentList: null,
-
+  allCountriesList: null,
 };
 
 export default state;
