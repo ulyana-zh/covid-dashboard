@@ -1,5 +1,4 @@
 const keyboard = {
-  constainer: null,
   sideKeys: [
     ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '|', 'Backspace'],
     ['Tab', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', 'Delete'],
@@ -33,7 +32,6 @@ const keyboard = {
   switchKeyboard: null,
 
   init() {
-    this.constainer = document.querySelector('.list__wrapper');
     const keyboardDiv = document.createElement('div');
     keyboardDiv.classList.add('keyboard', 'keyboard-off');
     keyboardDiv.setAttribute('draggable', true);
@@ -105,7 +103,7 @@ const keyboard = {
 
     this.textarea = document.querySelector('.search-input');
 
-    this.constainer.appendChild(keyboardDiv);
+    document.body.appendChild(keyboardDiv);
     // create language button
     this.buttonLanguage = document.querySelector('.key.win');
     const spanRus = document.createElement('span');
@@ -212,7 +210,7 @@ const keyboard = {
     document.querySelector('.close-keyboard > img').addEventListener('click', () => {
       keyboardDiv.classList.add('keyboard-off');
     });
-    this.dragAndDrop(keyboardDiv);
+    this.dragAndDrop();
   },
 
   changeLanguage() {
@@ -330,69 +328,35 @@ const keyboard = {
     }
   },
 
-  dragAndDrop(element) {
-    function dragStart(event) {
-      setTimeout(() => {
-        element.classList.add('keyboard-off');
-      }, 0);
-      const style = window.getComputedStyle(event.target, null);
-      event.dataTransfer.setData('text/plain',
-        `${parseInt(style.getPropertyValue('left'), 10) - event.clientX},${parseInt(style.getPropertyValue('top'), 10) - event.clientY}`);
-    }
+  dragAndDrop() {
+    const draggable = document.querySelector('.keyboard');
 
-    function dragOver(event) {
-      event.preventDefault();
-      return false;
-    }
+    draggable.addEventListener('mousedown', (event) => {
+      const shiftX = event.clientX - draggable.getBoundingClientRect().left;
+      const shiftY = event.clientY - draggable.getBoundingClientRect().top;
 
-    function drop(event) {
-      const offset = event.dataTransfer.getData('text/plain').split(',');
-      const keyboardCurrent = document.querySelector('.keyboard');
-      keyboardCurrent.style.left = `${event.clientX + parseInt(offset[0], 10)}px`;
-      keyboardCurrent.style.top = `${event.clientY + parseInt(offset[1], 10)}px`;
-      event.preventDefault();
-      return false;
-    }
+      function moveAt(pageX, pageY) {
+        draggable.style.left = `${pageX - shiftX}px`;
+        draggable.style.top = `${pageY - shiftY}px`;
+      }
 
-    element.addEventListener('dragstart', dragStart, false);
-    element.addEventListener('dragend', () => {
-      element.classList.remove('keyboard-off');
+      moveAt(event.pageX, event.pageY);
+
+      function onMouseMove(evt) {
+        moveAt(evt.pageX, evt.pageY);
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      draggable.addEventListener('mouseup', () => {
+        document.removeEventListener('mousemove', onMouseMove);
+      });
     });
-    document.body.addEventListener('dragover', dragOver, false);
-    document.body.addEventListener('drop', drop, false);
+
+    draggable.addEventListener('dragstart', (event) => {
+      event.preventDefault();
+    });
   },
-
-  // dragAndDrop(elmnt) {
-  //   let pos1 = 0;
-  //   let pos2 = 0;
-  //   let pos3 = 0;
-  //   let pos4 = 0;
-  //   function dragMouseDown(e) {
-  //     e = e || window.event;
-  //     pos3 = e.clientX;
-  //     pos4 = e.clientY;
-  //     document.addEventListener('mouseup', closeDragElement);
-  //     document.addEventListener('mousemove', elementDrag);
-  //   }
-
-  //   function elementDrag(e) {
-  //     // e = e || window.event;
-  //     console.log(e.clientX)
-  //     pos1 = pos3 - e.clientX;
-  //     pos2 = pos4 - e.clientY;
-  //     pos3 = e.clientX;
-  //     pos4 = e.clientY;
-  //     elmnt.style.top = `${elmnt.offsetTop - pos2}px`;
-  //     elmnt.style.left = `${elmnt.offsetLeft - pos1}px`;
-  //   }
-
-  //   function closeDragElement() {
-  //     document.removeEventListener('mouseup', closeDragElement);
-  //     document.removeEventListener('mousemove', elementDrag);
-  //   }
-
-  //   elmnt.addEventListener('mousedown', dragMouseDown);
-  // },
 };
 
 keyboard.init();

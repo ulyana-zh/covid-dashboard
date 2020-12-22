@@ -14,7 +14,7 @@ function renderListBlock() {
     state.currentListMode = event.currentTarget.value;
     list.removeChild(list.lastChild);
     store.getAllCountriesData().then((data) => {
-      list.append(renderList(data));
+      list.append(renderList(state.searchedList ? state.searchedList : data));
     });
   });
 
@@ -27,7 +27,8 @@ function renderListBlock() {
     list.removeChild(list.lastChild);
     store.getAllCountriesData().then((data) => {
       const searchRequest = searchInput.value;
-      const searchedList = data.filter((country) => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
+      const searchedList = data.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
+      state.searchedList = searchedList;
       list.append(renderList(searchedList));
     });
   }

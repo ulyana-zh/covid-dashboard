@@ -5,6 +5,25 @@ import marker from '../assets/icons/marker.svg';
 import legend from '../assets/icons/legend.svg';
 import close from '../assets/icons/close.svg';
 
+const select = {
+  selectElement: null,
+  init() {
+    this.selectElement = document.createElement('select');
+    this.selectElement.classList.add('select-map');
+    this.selectElement.innerHTML = `<option value="cases" selected>Cases</option>
+    <option value="deaths">Death</option>
+    <option value="recovered">Recovered</option>`;
+
+    this.selectElement.addEventListener('change', () => {
+      map.setMarkers(this.selectElement.value);
+    });
+
+    document.querySelector('.map__wrapper').appendChild(this.selectElement);
+  },
+};
+
+select.init();
+
 const map = {
   map: null,
   mapOptions: {
@@ -32,7 +51,7 @@ const map = {
       .then((result) => result.json())
       .then((result) => {
         this.data = result;
-        map.setMarkers('cases');
+        map.setMarkers(select.selectElement.value);
       });
 
     this.buttonOpenLegend = document.querySelector('.map-legend-button > img');
@@ -113,33 +132,27 @@ const map = {
         draggable: false,
         icon: customIcon,
         opacity: 0.5,
+        alt: `${dataMarkers[i].country}`,
       };
       const mark = L.marker([dataMarkers[i].latitude, dataMarkers[i].longitude], markerOptions);
+      mark.addEventListener('click', (event) => {
+        document.querySelector('.search-input').value = event.target.options.alt;
+        document.querySelector('.search-input').focus();
+        this.data.forEach((element) => {
+          if (element.country === event.target.options.alt) {
+            setTimeout(() => {
+              const country = document.querySelector('.list-wrapper__country-block');
+              country.click();
+            }, 50);
+          }
+        });
+      });
       mark.addTo(this.map);
     }
   },
 };
 
 map.init();
-
-const select = {
-  selectElement: null,
-  init() {
-    this.selectElement = document.createElement('select');
-    this.selectElement.classList.add('select-map');
-    this.selectElement.innerHTML = `<option value="cases" selected>Cases</option>
-    <option value="deaths">Death</option>
-    <option value="recovered">Recovered</option>`;
-
-    this.selectElement.addEventListener('change', () => {
-      map.setMarkers(this.selectElement.value);
-    });
-
-    document.querySelector('.map__wrapper').appendChild(this.selectElement);
-  },
-};
-
-select.init();
 
 const setDate = {
   init() {

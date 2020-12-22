@@ -1,8 +1,10 @@
+const modifyNumberValue = require('../common-functions/modifyNumberValue');
+
 function renderStatistics(statistics) {
   tableArea.textContent = statistics.area;
-  tableCases.textContent = statistics.cases;
-  tableDeaths.textContent = statistics.deaths;
-  tableRecovered.textContent = statistics.recovered;
+  tableCases.textContent = modifyNumberValue(statistics.cases);
+  tableDeaths.textContent = modifyNumberValue(statistics.deaths);
+  tableRecovered.textContent = modifyNumberValue(statistics.recovered);
 }
 
 export default renderStatistics;

@@ -11,6 +11,8 @@ const createDataArrayForEachDay = (data) => {
 };
 
 async function getGlobalData() {
+  const MAX = 1000000;
+
   // Cumulative
   const dates = [];
   const cases = [];
@@ -25,9 +27,9 @@ async function getGlobalData() {
   data.recovered.forEach((el) => recovered.push(el));
 
   // Each Day
-  const casesDay = createDataArrayForEachDay(cases).filter((el) => el < 1000000);
+  const casesDay = createDataArrayForEachDay(cases).filter((el) => el < MAX);
   const deathsDay = createDataArrayForEachDay(deaths);
-  const recoveredDay = createDataArrayForEachDay(recovered).filter((el) => el > 0 && el < 1000000);
+  const recoveredDay = createDataArrayForEachDay(recovered).filter((el) => el > 0 && el < MAX);
 
   return {
     dates, cases, deaths, recovered, casesDay, deathsDay, recoveredDay,
@@ -35,6 +37,7 @@ async function getGlobalData() {
 }
 
 async function getDataForCountry(country) {
+  
   // Cumulative
   const cases = [];
   const deaths = [];
@@ -139,12 +142,12 @@ async function createChart() {
   const chart = new Chart(chartWrapper, chartConfig);
 
   const config = chart.config.data.datasets[0];
-  changeChart(config, chart);
+  changeChartToGlobalData(config, chart);
 
   return chart;
 }
 
-async function changeChart(config, chart) {
+async function changeChartToGlobalData(config, chart) {
   const globalData = await getGlobalData();
   const inputs = document.querySelector('main');
 
@@ -178,4 +181,39 @@ async function changeChart(config, chart) {
   });
 }
 
-export { createChart, changeChart };
+async function changeChartToEachCountry(country) {
+  const data = await getDataForCountry(country);
+
+  const inputs = document.querySelector('main');
+
+  inputs.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', () => {
+      if (timeChoice1.checked && data.checked) {
+        config.data = data.cases;
+        changeChartToCases(config, chart);
+      }
+      if (timeChoice1.checked && allDeaths.checked) {
+        config.data = data.deaths;
+        changeChartToDeaths(config, chart);
+      }
+      if (timeChoice1.checked && allRecovered.checked) {
+        config.data = data.recovered;
+        changeChartToRecovered(config, chart);
+      }
+      if (timeChoice2.checked && allCases.checked) {
+        config.data = data.casesDay;
+        changeChartToCases(config, chart);
+      }
+      if (timeChoice2.checked && allDeaths.checked) {
+        config.data = data.deathsDay;
+        changeChartToDeaths(config, chart);
+      }
+      if (timeChoice2.checked && allRecovered.checked) {
+        config.data = data.recoveredDay;
+        changeChartToRecovered(config, chart);
+      }
+    });
+  });
+}
+
+export { createChart };
