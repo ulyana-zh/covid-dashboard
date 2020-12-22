@@ -30,10 +30,12 @@ function renderList(list) {
     countryBlock.addEventListener('click', () => {
       state.isGlobal = false;
       state.currentCountry = country.id;
+      state.currentCountryName = country.area;
       timeChoice1.checked = true;
       rangeChoice1.checked = true;
       renderStatistics(country);
       inputField.value = country.area;
+      console.log(state.currentCountryName);
     });
 
     listWrapper.append(countryBlock);
