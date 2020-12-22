@@ -9,6 +9,7 @@ function renderListBlock() {
 
   store.getAllCountriesData().then((data) => {
     list.append(renderList(data));
+    state.allCountriesList = data;
   });
 
   document.querySelector('select').addEventListener('change', (event) => {
@@ -23,6 +24,11 @@ function renderListBlock() {
   searchInput.classList.add('search-input');
   searchInput.addEventListener('input', searchHandler);
   searchInput.addEventListener('focus', searchHandler);
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    };
+  });
 
   function searchHandler() {
     if (searchInput.value === '') {
@@ -31,12 +37,18 @@ function renderListBlock() {
       });
     }
     list.removeChild(list.lastChild)
-    store.getAllCountriesData().then((data) => {
-      const searchRequest = searchInput.value;
-      const searchedList = data.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
-      state.searchedList = searchedList;
-      list.append(renderList(searchedList));
-    });
+
+    const searchRequest = searchInput.value;
+    const searchedList = state.allCountriesList.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
+    state.searchedList = searchedList;
+    list.append(renderList(searchedList));
+
+    // store.getAllCountriesData().then((data) => {
+    //   const searchRequest = searchInput.value;
+    //   const searchedList = data.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
+    //   state.searchedList = searchedList;
+    //   list.append(renderList(searchedList));
+    // });
   }
 }
 
