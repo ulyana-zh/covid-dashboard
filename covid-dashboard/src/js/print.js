@@ -22,7 +22,6 @@ const printData = {
       .then((result) => result.json())
       .then((result) => {
         this.data = result;
-        console.log(result);
         const icon = document.createElement('div');
         icon.classList.add('print-icon');
         const img = document.createElement('img');
