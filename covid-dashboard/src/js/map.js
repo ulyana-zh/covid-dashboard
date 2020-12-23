@@ -11,7 +11,7 @@ const select = {
     this.selectElement = document.createElement('select');
     this.selectElement.classList.add('select-map');
     this.selectElement.innerHTML = `<option value="cases" selected>Cases</option>
-    <option value="deaths">Death</option>
+    <option value="deaths">Deaths</option>
     <option value="recovered">Recovered</option>`;
 
     this.selectElement.addEventListener('change', () => {
