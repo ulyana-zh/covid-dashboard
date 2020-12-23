@@ -223,12 +223,10 @@ async function createChart() {
 
   input.addEventListener('input', () => {
     if (!input.value) changeChartToGlobalData(config, chart);
-    state.isGlobal = true;
   });
 
   document.body.addEventListener('click', () => {
     country = state.getCurrentCountryName();
-    console.log(country)
     if (state.isGlobal && !country || country === 'Global') {
       changeChartToGlobalData(config, chart);
     } else {
