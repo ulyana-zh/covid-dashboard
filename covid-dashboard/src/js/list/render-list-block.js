@@ -34,6 +34,7 @@ function renderListBlock() {
     if (searchInput.value === '') {
       store.getGlobalData().then((data) => {
         renderStatistics(data);
+        state.isGlobal = true;
       });
     }
     list.removeChild(list.lastChild);
