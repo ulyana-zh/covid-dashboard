@@ -35,14 +35,14 @@ const getData = (data) => {
   const recoveredDay = createDataArrayForEachDay(recovered).filter((el) => el >= MIN && el < MAX);
 
   // Relative Cumulative
-  const casesRelative = cases.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
-  const deathsRelative = deaths.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
-  const recoveredRelative = recovered.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const casesRelative = cases.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
+  const deathsRelative = deaths.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
+  const recoveredRelative = recovered.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
 
   // Relative Each Day
-  const casesRelativeDay = casesDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
-  const deathsRelativeDay = deathsDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
-  const recoveredRelativeDay = recoveredDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const casesRelativeDay = casesDay.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
+  const deathsRelativeDay = deathsDay.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
+  const recoveredRelativeDay = recoveredDay.map((el) => ((el / data.population) * RELATIVE).toFixed(2));
 
   return {
     dates,
@@ -179,7 +179,7 @@ async function createChart() {
           },
           ticks: {
             callback(value, index) {
-              if (index % 1 === 0) return `${(value / 1000).toFixed(2)}k`;
+              if (index % 1 === 0) return `${Math.trunc(value / 1000)}k`;
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
             fontFamily: 'Bebas Neue',
@@ -219,13 +219,17 @@ async function createChart() {
   const config = chart.config.data.datasets[0];
   const input = document.querySelector('.search-input');
 
+  let country; 
+
   input.addEventListener('input', () => {
     if (!input.value) changeChartToGlobalData(config, chart);
+    state.isGlobal = true;
   });
 
   document.body.addEventListener('click', () => {
-    const country = state.getCurrentCountryName();
-    if (!country) {
+    country = state.getCurrentCountryName();
+    console.log(country)
+    if (state.isGlobal && !country || country === 'Global') {
       changeChartToGlobalData(config, chart);
     } else {
       changeChartToEachCountry(`${country}`, config, chart);

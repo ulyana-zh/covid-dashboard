@@ -1,4 +1,4 @@
-$key: #a0a0a0;
+$key: #ffffffe3;
 $key-hover: #747171;
 
 // * {  
@@ -23,7 +23,7 @@ $key-hover: #747171;
   max-width: 600px;
   width: 110%;
   padding: 10px;
-  background-color: #c4c4c4;
+  background-color: #909090;
   position: absolute;
   left: calc(50% - 300px);
   top: calc(75% - 100px);
@@ -66,6 +66,7 @@ $key-hover: #747171;
   background-color: $key;
   border-radius: 5px;
   user-select: none;
+  color:rgba(0, 0, 0, 0.775);
 
   &:hover {
     background-color: $key-hover;

@@ -12,7 +12,7 @@ function renderListBlock() {
     state.allCountriesList = data;
   });
 
-  document.querySelector('select').addEventListener('change', (event) => {
+  document.querySelector('.list__select').addEventListener('change', (event) => {
     state.currentListMode = event.currentTarget.value;
     list.removeChild(list.lastChild);
     store.getAllCountriesData().then((data) => {

@@ -39,8 +39,24 @@
     right: -5px;
     z-index: 1;
     cursor: pointer;
+
+    @media (max-width: 900px) {
+        display: none;
+    }
+
+    &:hover {
+        transition: all 0.3;
+        transform: scale(1.1);
+    }
 }
 
 .icon-close {
     background-image: url('../assets/icons/close.png');
 }
+
+label {
+    &:hover {
+        transition: all 0.3s;
+        color: #e6e6e6e5;
+    }
+} 

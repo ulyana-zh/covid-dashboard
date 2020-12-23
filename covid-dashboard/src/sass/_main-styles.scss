@@ -9,6 +9,12 @@ html {
     font-size: 10px;
 }
 
+main {
+    @media (max-width: 900px) {
+        height: 205%;
+    }
+}
+
 .wrapper {
     margin: 0 auto;
     max-width: 1400px;
@@ -30,13 +36,14 @@ html {
 .wrapper__main {
     display: grid;
     grid-template-columns: 45% 55%;
-    grid-template-rows: calc(100vh - 100px);
+    grid-template-rows: calc(100vh - 145px);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
     justify-items: stretch;
     align-items: stretch;
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 145px);
+    //min-height: 500px;
     position: relative;
     padding: 0;
 
@@ -54,4 +61,41 @@ html {
     background-color: rgba(103, 103, 103, 0.306);
     box-shadow: -1px -4px 16px 0px rgba(9, 13, 35, 0.517);
     padding: 10px;
+}
+
+
+.footer__wrapper {
+    height: 50px;
+    font-size: 1.7rem;
+    justify-content: flex-end;
+    color: rgba(255, 255, 255, 0.878);
+    font-weight: 400;
+
+    a {
+        color:rgba(209, 209, 209, 0.503);
+        text-decoration: none;
+        margin: 0 10px;
+
+        &:hover {
+            color: white;
+        }
+    }
+    &>span {
+        margin: 0 20px;
+    }
+}
+
+.logo__rsschool {
+    width: 73px;
+    height: 27px;
+    background-image: url('../assets/icons/rs_school_js.svg');
+    background-size: cover;
+}
+
+.copyrigth {
+    width: 13px;
+    height: 13px;
+    background-image: url('../assets/icons/copyright.svg');
+    background-size: cover;  
+    margin: 0; 
 }
