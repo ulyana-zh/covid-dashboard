@@ -5,6 +5,7 @@ import './map';
 import addEventListenerToResizeButton from './resize';
 import addEventListenersToSelects from './listeners';
 import './keyboard';
+import './print';
 
 window.onload = () => {
   renderTableBlock();
