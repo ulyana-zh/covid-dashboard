@@ -50,72 +50,46 @@
 .table-print-title {
   width: 450px;
   text-align: center;
-  margin: 10px auto;
+  margin: 20px auto 10px;
   font-family: 'Roboto', sans-serif;
 }
 
-.table-print-head {
-  display: flex;
-  text-align: center;
-  div {
-    width: 33%;
-    border-top: 2px solid black;
-    border-left: 2px solid black;
-    font-family: 'Roboto', sans-serif;
-    font-size: 2.4rem;
-  }
-}
-
-.table-print-cases, .table-print-deaths, .table-print-recovered {
-  display: flex;
-  text-align: center;
-  div {
-    width: 33%;
-    border-top: 2px solid black;
-    border-left: 2px solid black;
-    text-transform: none;
-    font-family: 'Roboto', sans-serif;
-    font-size: 2.4rem;
-  }
-} 
-
-.table-print-head > div:nth-child(3), .table-print-cases > div:nth-child(3), .table-print-deaths > div:nth-child(3), .table-print-recovered > div:nth-child(3) {
-  border-right: 2px solid black;
-}
-
-.table-print-recovered.bottom {
-  div {
-    border-bottom: 2px solid black;
-  }
-}
-
-.table-print-cases .title, .table-print-deaths .title, .table-print-recovered .title {
-  text-align: left;
-}
-
-.second-table-print {
-  width: 700px;
+.table {
+  width: 800px;
   margin: 0 auto;
-}
-
-.second-table-print-head, .second-table-print-cases {
-  display: flex;
-  text-align: center;
-  div {
-    width: 50%;
-    border-top: 2px solid black;
-    border-left: 2px solid black;
+  border: 2px solid black;
+  border-collapse: collapse;
+  th {
+    border: 2px solid black;
     font-family: 'Roboto', sans-serif;
-    font-size: 2.4rem;
-  } 
-}
-
-.second-table-print-cases {
-  div {
-    border-bottom: 2px solid black;
+    height: 50px;
+  }
+  td {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    min-width: 150px;
+    height: 50px;
+  }
+  td:not(:first-child) {
+    text-align: center;
   }
 }
 
-.second-table-print-head > div:nth-child(2), .second-table-print-cases > div:nth-child(2) {
-  border-right: 2px solid black;
+.second-table {
+  width: 600px;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-collapse: collapse;
+  th {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    height: 50px;
+  }
+  td {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    min-width: 150px;
+    height: 50px;
+    text-align: center;
+  }
 }

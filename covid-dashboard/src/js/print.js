@@ -85,53 +85,57 @@ const printData = {
     const table = document.createElement('div');
     table.classList.add('table-print');
     table.innerHTML = `<div class="table-print-title">Cases, deaths and recovered</div>
-    <div class="table-print-head">
-    <div></div>
-    <div>All time</div>
-    <div>Today</div>
-  </div>
-  <div class="table-print-cases">
-    <div class="title">Cases</div>
-    <div>${currentCountry.cases}</div>
-    <div>${currentCountry.todayCases}</div>
-  </div>
-  <div class="table-print-deaths">
-    <div class="title">Deaths</div>
-    <div>${currentCountry.deaths}</div>
-    <div>${currentCountry.todayDeaths}</div>
-  </div>
-  <div class="table-print-recovered">
-    <div class="title">Recovered</div>
-    <div>${currentCountry.recovered}</div>
-    <div>${currentCountry.todayRecovered}</div>
-  </div>
-  <div class="table-print-cases">
-    <div class="title">Сases per 100,000 people</div>
-    <div>${((currentCountry.cases * 100000) / currentCountry.population).toFixed(1)}</div>
-    <div>${((currentCountry.todayCases * 100000) / currentCountry.population).toFixed(1)}</div>
-  </div>
-  <div class="table-print-deaths">
-    <div class="title">Deaths per 100,000 people</div>
-    <div>${((currentCountry.deaths * 100000) / currentCountry.population).toFixed(1)}</div>
-    <div>${((currentCountry.todayDeaths * 100000) / currentCountry.population).toFixed(1)}</div>
-  </div>
-  <div class="table-print-recovered bottom">
-    <div class="title">Recovered per 100,000 people</div>
-    <div>${((currentCountry.recovered * 100000) / currentCountry.population).toFixed(1)}</div>
-    <div>${((currentCountry.todayRecovered * 100000) / currentCountry.population).toFixed(1)}</div>
-  </div>`;
+    <table class="table">
+  <tr>
+    <th></th>
+    <th>All time</th>
+    <th>Today</th>
+  </tr>
+  <tr>
+    <td>Cases</td>
+    <td>${currentCountry.cases}</td>
+    <td>${currentCountry.todayCases}</td>
+  </tr>
+  <tr>
+    <td>Deaths</td>
+    <td>${currentCountry.deaths}</td>
+    <td>${currentCountry.todayDeaths}</td>
+  </tr>
+  <tr>
+    <td>Recovered</td>
+    <td>${currentCountry.recovered}</td>
+    <td>${currentCountry.todayRecovered}</td>
+  </tr>
+  <tr>
+    <td>Сases per 100,000 people</td>
+    <td>${((currentCountry.cases * 100000) / currentCountry.population).toFixed(1)}</td>
+    <td>${((currentCountry.todayCases * 100000) / currentCountry.population).toFixed(1)}</td>
+  </tr>
+  <tr>
+    <td>Deaths per 100,000 people</td>
+    <td>${((currentCountry.deaths * 100000) / currentCountry.population).toFixed(1)}</td>
+    <td>${((currentCountry.todayDeaths * 100000) / currentCountry.population).toFixed(1)}</td>
+  </tr>
+  <tr>
+    <td>Recovered per 100,000 people</td>
+    <td>${((currentCountry.recovered * 100000) / currentCountry.population).toFixed(1)}</td>
+    <td>${((currentCountry.todayRecovered * 100000) / currentCountry.population).toFixed(1)}</td>
+  </tr>
+</table>`;
 
     const secondTable = document.createElement('div');
     secondTable.classList.add('second-table-print');
     secondTable.innerHTML = `<div class="table-print-title">Testing</div>
-    <div class="second-table-print-head">
-    <div>Tests</div>
-    <div>Tests per 100,000 people</div>
-  </div>
-  <div class="second-table-print-cases">
-    <div>${currentCountry.tests}</div>
-    <div>${((currentCountry.tests * 100000) / currentCountry.population).toFixed(1)}</div>
-  </div>`;
+    <table class="second-table">
+  <tr>
+    <th>Tests</th>
+    <th>Tests per 100,000 people</th>
+  </tr>
+  <tr>
+    <td>${currentCountry.tests}</td>
+    <td>${((currentCountry.tests * 100000) / currentCountry.population).toFixed(1)}</td>
+  </tr>
+</table>`;
 
     document.querySelector('.print-data').appendChild(title);
     document.querySelector('.print-data').appendChild(updateDate);
