@@ -9,7 +9,7 @@ const state = {
   allCountriesList: null,
 
   getCurrentCountryName() {
-    return this.currentCountryName;
+    return this.isGlobal ? 'Global' : this.currentCountryName;
   },
 };
 
