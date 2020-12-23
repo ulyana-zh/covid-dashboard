@@ -1,60 +1,176 @@
+import store from './store';
+import state from './state';
+
 const regeneratorRuntime = require('regenerator-runtime');
 
-const chartWrapper = document.getElementById('chart').getContext('2d');
+const createDataArrayForEachDay = (data) => {
+  const targetArray = [];
+  for (let i = 0; i < data.length - 1; i++) {
+    targetArray[i] = data[i + 1] - data[i];
+  }
+  return targetArray;
+};
 
-async function getData() {
-  const dateX = [];
-  const caseY = [];
-  const deathsY = [];
-  const recoveredY = [];
+const getData = (data) => {
+  const MAX = 1000000;
+  const MIN = 0;
+  const RELATIVE = 100000;
 
-  const url = 'https://disease.sh/v3/covid-19/historical/all?lastdays=366';
-  const response = await fetch(url);
-  const data = await response.json();
+  // Cumulative
+  const dates = [];
+  const cases = [];
+  const deaths = [];
+  const recovered = [];
 
-  const dates = Object.keys(Object.values(data)[0]);
-  const cases = Object.values(Object.values(data)[0]);
-  const deaths = Object.values(Object.values(data)[1]);
-  const recovered = Object.values(Object.values(data)[2]);
+  if (data) {
+    if (data.dates) data.dates.forEach((el) => dates.push(el));
+    data.cases.forEach((el) => cases.push(el));
+    data.deaths.forEach((el) => deaths.push(el));
+    data.recovered.forEach((el) => recovered.push(el));
+  }
 
-  dates.forEach((date) => {
-    dateX.push(date);
-  });
+  // Each Day
+  const casesDay = createDataArrayForEachDay(cases).filter((el) => el < MAX && el >= MIN);
+  const deathsDay = createDataArrayForEachDay(deaths).filter((el) => el >= MIN);
+  const recoveredDay = createDataArrayForEachDay(recovered).filter((el) => el >= MIN && el < MAX);
 
-  cases.forEach((elem) => {
-    caseY.push(elem);
-  });
+  // Relative Cumulative
+  const casesRelative = cases.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const deathsRelative = deaths.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const recoveredRelative = recovered.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
 
-  deaths.forEach((death) => {
-    deathsY.push(death);
-  });
-
-  recovered.forEach((recovering) => {
-    recoveredY.push(recovering);
-  });
+  // Relative Each Day
+  const casesRelativeDay = casesDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const deathsRelativeDay = deathsDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
+  const recoveredRelativeDay = recoveredDay.map((el) => (el / data.population) * RELATIVE).map((el) => el.toFixed(2));
 
   return {
-    dateX, caseY, deathsY, recoveredY,
+    dates,
+    cases,
+    deaths,
+    recovered,
+    casesDay,
+    deathsDay,
+    recoveredDay,
+    casesRelative,
+    deathsRelative,
+    recoveredRelative,
+    casesRelativeDay,
+    deathsRelativeDay,
+    recoveredRelativeDay,
   };
+};
+
+async function getGlobalData() {
+  const data = await store.getHistoricalGlobalRates();
+  return getData(data);
+}
+
+async function getDataForCountry(country) {
+  const data = await store.getRatesForEachCountry(country);
+  return getData(data);
+}
+
+const changeChartToCases = (config, chart, country = 'Global') => {
+  config.backgroundColor = 'rgba(234,28,36,0.6)';
+  config.label = `Cases ${country}`;
+  chart.config.type = 'bar';
+  chart.update();
+};
+
+const changeChartToDeaths = (config, chart, country = 'Global') => {
+  config.backgroundColor = 'white';
+  config.label = `Deaths ${country}`;
+  chart.config.type = 'bar';
+  chart.update();
+};
+
+const changeChartToRecovered = (config, chart, country = 'Global') => {
+  config.backgroundColor = 'green';
+  config.label = `Recovered ${country}`;
+  chart.config.type = 'bar';
+  chart.update();
+};
+
+const updateDataForChart = (config, chart, data, country = 'Global') => {
+  // Absolute
+  if (timeChoice1.checked && allCases.checked && rangeChoice1.checked) {
+    config.data = data.cases;
+    changeChartToCases(config, chart, country);
+  }
+  if (timeChoice1.checked && allDeaths.checked && rangeChoice1.checked) {
+    config.data = data.deaths;
+    changeChartToDeaths(config, chart, country);
+  }
+  if (timeChoice1.checked && allRecovered.checked && rangeChoice1.checked) {
+    config.data = data.recovered;
+    changeChartToRecovered(config, chart, country);
+  }
+  if (timeChoice2.checked && allCases.checked && rangeChoice1.checked) {
+    config.data = data.casesDay;
+    changeChartToCases(config, chart, country);
+  }
+  if (timeChoice2.checked && allDeaths.checked && rangeChoice1.checked) {
+    config.data = data.deathsDay;
+    changeChartToDeaths(config, chart, country);
+  }
+  if (timeChoice2.checked && allRecovered.checked && rangeChoice1.checked) {
+    config.data = data.recoveredDay;
+    changeChartToRecovered(config, chart, country);
+  }
+
+  // Relative
+  if (timeChoice1.checked && allCases.checked && rangeChoice2.checked) {
+    config.data = data.casesRelative;
+    changeChartToCases(config, chart, country);
+  }
+  if (timeChoice1.checked && allDeaths.checked && rangeChoice2.checked) {
+    config.data = data.deathsRelative;
+    changeChartToDeaths(config, chart, country);
+  }
+  if (timeChoice1.checked && allRecovered.checked && rangeChoice2.checked) {
+    config.data = data.recoveredRelative;
+    changeChartToRecovered(config, chart, country);
+  }
+  if (timeChoice2.checked && allCases.checked && rangeChoice2.checked) {
+    config.data = data.casesRelativeDay;
+    changeChartToCases(config, chart, country);
+  }
+  if (timeChoice2.checked && allDeaths.checked && rangeChoice2.checked) {
+    config.data = data.deathsRelativeDay;
+    changeChartToDeaths(config, chart, country);
+  }
+  if (timeChoice2.checked && allRecovered.checked && rangeChoice2.checked) {
+    config.data = data.recoveredRelativeDay;
+    changeChartToRecovered(config, chart, country);
+  }
+};
+
+async function changeChartToGlobalData(config, chart) {
+  const globalData = await getGlobalData();
+  updateDataForChart(config, chart, globalData);
+}
+
+async function changeChartToEachCountry(country, config, chart) {
+  const data = await getDataForCountry(country);
+  updateDataForChart(config, chart, data, country);
 }
 
 async function createChart() {
-  const data = await getData();
-  const chart = new Chart(chartWrapper, {
+  const chartWrapper = document.getElementById('chart').getContext('2d');
+  const globalData = await getGlobalData();
+  const chartConfig = {
     type: 'bar',
-    scaleFontColor: 'red',
     data: {
-      labels: data.dateX,
+      labels: globalData.dates,
       datasets: [{
         label: 'Cases',
-        data: data.caseY,
-        fill: false,
+        data: globalData.cases,
         backgroundColor: 'rgba(234,28,36,0.6)',
         borderWidth: 1,
       }],
     },
     options: {
-
       scales: {
         yAxes: [{
           beginAtZero: true,
@@ -62,10 +178,11 @@ async function createChart() {
             color: 'rgba(218, 218, 218, 0.21)',
           },
           ticks: {
-            callback(value, index, values) {
-              if (index % 2 === 0) return `${value / 100000}m`;
+            callback(value, index) {
+              if (index % 1 === 0) return `${(value / 1000).toFixed(2)}k`;
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
+            fontFamily: 'Bebas Neue',
             fontSize: 12,
           },
         }],
@@ -78,10 +195,12 @@ async function createChart() {
             stepSize: 2,
           },
           gridLines: {
-            display: false,
+            color: 'rgba(218, 218, 218, 0.21)',
+            borderDash: [10],
           },
           ticks: {
             fontColor: 'rgba(218, 218, 218, 0.80)',
+            fontFamily: 'Bebas Neue',
             fontSize: 12,
           },
         }],
@@ -95,34 +214,24 @@ async function createChart() {
       },
 
     },
-  });
-
+  };
+  const chart = new Chart(chartWrapper, chartConfig);
   const config = chart.config.data.datasets[0];
+  const input = document.querySelector('.search-input');
 
-  document.getElementById('all-deaths').addEventListener('click', () => {
-    config.data = data.deathsY;
-    config.backgroundColor = 'white';
-    config.label = 'Deaths';
-    chart.update();
+  input.addEventListener('input', () => {
+    if (!input.value) changeChartToGlobalData(config, chart);
   });
 
-  document.getElementById('all-recovered').addEventListener('click', () => {
-    config.data = data.recoveredY;
-    config.backgroundColor = 'green';
-    config.label = 'Recovered';
-    // chart.config.type = 'line';
-    chart.update();
+  document.body.addEventListener('click', () => {
+    const country = state.getCurrentCountryName();
+    if (!country) {
+      changeChartToGlobalData(config, chart);
+    } else {
+      changeChartToEachCountry(`${country}`, config, chart);
+    }
   });
-
-  document.getElementById('all-cases').addEventListener('click', () => {
-    config.data = data.caseY;
-    config.backgroundColor = 'rgba(234,28,36,0.6)';
-    config.label = 'Cases';
-    chart.config.type = 'bar';
-    chart.update();
-  });
-
   return chart;
 }
 
-export { createChart };
+export default createChart;
