@@ -4,6 +4,8 @@
 import marker from '../assets/icons/marker.svg';
 import legend from '../assets/icons/legend.svg';
 import close from '../assets/icons/close.svg';
+import L from 'leaflet';
+import "leaflet/dist/leaflet.css";
 
 const select = {
   selectElement: null,

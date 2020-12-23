@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "chart.js": "^2.9.4",
+    "leaflet": "^1.7.1",
     "normalize-scss": "^7.0.1",
     "regenerator-runtime": "^0.13.7"
   },
