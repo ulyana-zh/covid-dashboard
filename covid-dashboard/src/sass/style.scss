@@ -1,0 +1,10 @@
+@import "../../node_modules/normalize-scss/sass/normalize";
+@include normalize();
+
+@import "./main-styles";
+@import "./chart";
+@import "./map";
+@import "./background";
+@import "./resize";
+@import "./keyboard";
+@import "./print";

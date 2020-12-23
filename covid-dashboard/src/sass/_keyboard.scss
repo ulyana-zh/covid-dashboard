@@ -1,0 +1,280 @@
+$key: #ffffffe3;
+$key-hover: #747171;
+
+// * {  
+//   padding: 0;
+//   margin: 0;
+//   font-size: 10px;
+//   font-family: 'Roboto', sans-serif;
+// }
+
+.search {
+  position: absolute;
+  font-size: 3rem;
+  top: 150px;
+
+}
+
+#search {
+  z-index: 5;
+}
+
+.keyboard {
+  max-width: 600px;
+  width: 110%;
+  padding: 10px;
+  background-color: #909090;
+  position: absolute;
+  left: calc(50% - 300px);
+  top: calc(75% - 100px);
+  z-index: 2;
+  cursor: move;
+  border-radius: 10px;
+
+  @media (max-width: 900px) {
+    left: 50px;
+    top: 100px; 
+  }
+  @media (max-width: 750px) {
+    width: 100%;
+    left: 0px;
+    top: 100px; 
+  }
+}
+
+.keyboard-off {
+  display: none;
+}
+
+.keyboard__row-first,
+.keyboard__row-second,
+.keyboard__row-third,
+.keyboard__row-fourth,
+.keyboard__row-fifth {
+  display: flex;
+}
+
+.key {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  text-align: center;
+  width: 6.5%;
+  height: 35px;
+  cursor: pointer;
+  margin: 2px;
+  background-color: $key;
+  border-radius: 5px;
+  user-select: none;
+  color:rgba(0, 0, 0, 0.775);
+
+  &:hover {
+    background-color: $key-hover;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .5);
+  }
+}
+
+.key span {
+  font-size: 1.2rem;
+}
+
+.side-key,
+.side-key-rus {
+  text-align: right;
+  padding-right: 5px;
+  font-size: 1.5rem;
+  opacity: 0.4;
+}
+
+.main-key,
+.main-key-rus {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.key.backspace {
+  width: 9%;
+  display: flex;
+  justify-content: center;
+  background: url('../assets/icons/delete.svg') no-repeat 50% 50%;
+  background-size: 20px;
+  background-color: $key;
+
+  &:hover {
+    background-color: $key-hover;
+  }
+}
+
+.key.up {
+  background: url('../assets/icons/arrow-up.svg') no-repeat 50% 50%;
+}
+
+.key.down {
+  background: url('../assets/icons/arrow-down.svg') no-repeat 50% 50%;
+}
+
+.key.left {
+  background: url('../assets/icons/arrow-left.svg') no-repeat 50% 50%;
+}
+
+.key.right {
+  background: url('../assets/icons/arrow-right.svg') no-repeat 50% 50%;
+}
+
+
+.key.up,
+.key.down,
+.key.left,
+.key.right {
+  max-width: 60px;
+  background-size: 15px;
+  background-color: $key;
+
+  &:hover {
+    background-color: $key-hover;
+  }
+}
+
+.key.backspace span,
+.key.up span,
+.key.down span,
+.key.left span,
+.key.right span,
+.key.space span {
+  font-size: 0;
+}
+
+.key.tab,
+.key.delete {
+  width: 11%;
+  display: flex;
+  justify-content: center;
+}
+
+.key.tab span {
+  padding-right: 30px;
+}
+
+.key.tab {
+  background: url('../assets/icons/tab.svg') no-repeat 85% 50%;
+  background-size: 10px;
+  background-color: $key;
+
+  &:hover {
+    background-color: $key-hover;
+  }
+}
+
+.key.capslock {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+}
+
+.key.enter {
+  width: 15.5%;
+  display: flex;
+  justify-content: center;
+}
+
+.key.enter span {
+  padding-right: 30px;
+}
+
+.key.enter {
+  background: url('../assets/icons/enter.svg') no-repeat 80% 50%;
+  background-size: 15px;
+  background-color: $key;
+
+  &:hover {
+    background-color: $key-hover;
+  }
+}
+
+.key.shift {
+  width: 15.25%;
+  display: flex;
+  justify-content: center;
+}
+
+.key.shift {
+  background: url('../assets/icons/up.svg') no-repeat 15% 50%;
+  background-size: 15px;
+  background-color: $key;
+
+  &:hover {
+    background-color: $key-hover;
+  }
+}
+
+.key.ctrl {
+  width: 7.5%;
+  display: flex;
+  justify-content: center;
+}
+
+.key.space {
+  width: 46%;
+}
+
+.key.alt {
+  display: flex;
+  justify-content: center;
+}
+
+.active {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, .5);
+  filter: contrast(1.3);
+}
+
+.key.win span:nth-child(1) {
+  font-size: 0;
+}
+
+.key.win span:nth-child(2) {
+  text-align: right;
+  padding-right: 5px;
+  font-size: 1.2rem;
+}
+
+.language {
+  display: inline-block;
+  margin-top: 3px;
+  height: 100%;
+}
+
+.keyboard-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url('../assets/icons/keyboard.svg') 50% 50% no-repeat;
+  background-size: contain;
+  right: 30px;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.close-keyboard {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -9px;
+  right: -3px;
+  img {
+    width: 20px;
+    height: auto;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}

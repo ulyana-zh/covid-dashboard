@@ -1,0 +1,95 @@
+.print-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: calc(100% - 50px);
+  top: 10px;
+  img {
+    width: 25px;
+    height: auto;
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+.print-data {
+  position: absolute;
+  width: 620px;
+  height: 877px;
+  background-color: crimson;
+  display: none;
+}
+
+.title-print {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  img {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+  }
+  span {
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+.update-print {
+  font-family: 'Roboto', sans-serif;
+}
+
+.table-print {
+  margin-top: 20px;
+}
+
+.table-print-title {
+  width: 450px;
+  text-align: center;
+  margin: 20px auto 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.table {
+  width: 800px;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-collapse: collapse;
+  th {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    height: 50px;
+  }
+  td {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    min-width: 150px;
+    height: 50px;
+  }
+  td:not(:first-child) {
+    text-align: center;
+  }
+}
+
+.second-table {
+  width: 600px;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-collapse: collapse;
+  th {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    height: 50px;
+  }
+  td {
+    border: 2px solid black;
+    font-family: 'Roboto', sans-serif;
+    min-width: 150px;
+    height: 50px;
+    text-align: center;
+  }
+}
