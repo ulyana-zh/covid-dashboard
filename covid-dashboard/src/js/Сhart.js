@@ -22,10 +22,12 @@ const getData = (data) => {
   const deaths = [];
   const recovered = [];
 
-  if (data.dates) data.dates.forEach((el) => dates.push(el));
-  data.cases.forEach((el) => cases.push(el));
-  data.deaths.forEach((el) => deaths.push(el));
-  data.recovered.forEach((el) => recovered.push(el));
+  if (data) {
+    if (data.dates) data.dates.forEach((el) => dates.push(el));
+    data.cases.forEach((el) => cases.push(el));
+    data.deaths.forEach((el) => deaths.push(el));
+    data.recovered.forEach((el) => recovered.push(el));
+  }
 
   // Each Day
   const casesDay = createDataArrayForEachDay(cases).filter((el) => el < MAX && el >= MIN);
@@ -177,7 +179,7 @@ async function createChart() {
           },
           ticks: {
             callback(value, index) {
-              if (index % 1 === 0) return `${value / 1000}k`;
+              if (index % 1 === 0) return `${(value / 1000).toFixed(2)}k`;
             },
             fontColor: 'rgba(218, 218, 218, 0.80)',
             fontFamily: 'Bebas Neue',
@@ -216,7 +218,7 @@ async function createChart() {
   const chart = new Chart(chartWrapper, chartConfig);
   const config = chart.config.data.datasets[0];
   const input = document.querySelector('.search-input');
-  
+
   input.addEventListener('input', () => {
     if (!input.value) changeChartToGlobalData(config, chart);
   });

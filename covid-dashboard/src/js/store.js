@@ -153,9 +153,8 @@ const store = {
 
   getAllRatesForEachCountry(country) {
     const startPointDate = new Date('2020-04-15T00:00:00');
-
     const url = `${URL_COUNTRY}${country}`;
-    return fetch(url).then((response) => response.json()).then((data) => data.filter((country) => new Date(country.Date) > startPointDate).sort());
+    return fetch(url).then((response) => response.json()).then((data) => data.filter((country) => new Date(country.Date) > startPointDate).sort()).catch((error) => console.log(error));
   },
 
   async getRatesForEachCountry(country) {
@@ -166,7 +165,7 @@ const store = {
       deaths: data.map((country) => country.Deaths),
       recovered: data.map((country) => country.Recovered),
       population,
-    }));
+    })).catch((error) => console.log(error));
   },
 };
 
