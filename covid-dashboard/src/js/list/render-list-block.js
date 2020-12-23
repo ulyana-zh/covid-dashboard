@@ -2,7 +2,7 @@ import store from '../store';
 import state from '../state';
 import renderList from './render-list';
 import '../../sass/list/list.css';
-import renderStatistics from "../table/render-statistics";
+import renderStatistics from '../table/render-statistics';
 
 function renderListBlock() {
   const list = document.querySelector('#list');
@@ -27,7 +27,7 @@ function renderListBlock() {
   searchInput.addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
-    };
+    }
   });
 
   function searchHandler() {
@@ -36,10 +36,10 @@ function renderListBlock() {
         renderStatistics(data);
       });
     }
-    list.removeChild(list.lastChild)
+    list.removeChild(list.lastChild);
 
     const searchRequest = searchInput.value;
-    const searchedList = state.allCountriesList.filter(country => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
+    const searchedList = state.allCountriesList.filter((country) => country.area.toLowerCase().startsWith(searchRequest.toLowerCase()));
     state.searchedList = searchedList;
     list.append(renderList(searchedList));
 

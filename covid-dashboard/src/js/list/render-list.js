@@ -35,7 +35,6 @@ function renderList(list) {
       rangeChoice1.checked = true;
       renderStatistics(country);
       inputField.value = country.area;
-      console.log(state.currentCountryName);
     });
 
     listWrapper.append(countryBlock);

@@ -119,6 +119,16 @@ const store = {
     }));
   },
 
+  async getPopulation(country) {
+    const data = await this._sendRequest(URL_COUNTRIES);
+    return data.filter((data) => data.country === country).map((country) => country.population)[0];
+  },
+
+  async getPopulationGlobal() {
+    const data = await this._sendRequest(URL_GLOBAL);
+    return data;
+  },
+
   getHistoricalGlobalData() { // возвращает промис с архивными данными начиная с 15 апреля 2020
     const startPointDate = new Date('2020-04-15T00:00:00');
     const todayDate = new Date();
@@ -129,12 +139,15 @@ const store = {
     return fetch(url).then((response) => response.json());
   },
 
-  getHistoricalGlobalRates() {
+  async getHistoricalGlobalRates() {
+    const globalData = await this.getPopulationGlobal();
+
     return this.getHistoricalGlobalData().then((data) => ({
       dates: Object.keys(data.cases),
       cases: Object.values(data.cases),
       deaths: Object.values(data.deaths),
       recovered: Object.values(data.recovered),
+      population: globalData.population,
     }));
   },
 
@@ -145,11 +158,14 @@ const store = {
     return fetch(url).then((response) => response.json()).then((data) => data.filter((country) => new Date(country.Date) > startPointDate).sort());
   },
 
-  getRatesForEachCountry(country) {
+  async getRatesForEachCountry(country) {
+    const population = await this.getPopulation(country);
+
     return this.getAllRatesForEachCountry(country).then((data) => ({
       cases: data.map((country) => country.Confirmed),
       deaths: data.map((country) => country.Deaths),
       recovered: data.map((country) => country.Recovered),
+      population,
     }));
   },
 };
