@@ -162,7 +162,7 @@ const setDate = {
         const arrDates = Object.keys(result.cases);
         const date = arrDates[arrDates.length - 1].split('/');
         const dateDiv = document.querySelector('.today');
-        dateDiv.innerText = `Last update at ${+date[1] > 9 ? date[1] : `0${date[1]}`}.${+date[0] > 9 ? date[0] : `0${date[0]}`}.20${date[2]}`;
+        dateDiv.innerText = `Last updated ${+date[1] > 9 ? date[1] : `0${date[1]}`}.${+date[0] > 9 ? date[0] : `0${date[0]}`}.20${date[2]}`;
       });
   },
 };

@@ -12,7 +12,7 @@ const changeSelectMap = (rate) => {
 
 const changeSelectList = (rate) => {
   selectList.value = rate;
-  selectMap.dispatchEvent(new Event('change'));
+  selectList.dispatchEvent(new Event('change'));
 };
 
 const addEventListenersToSelects = () => {
