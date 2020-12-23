@@ -37,6 +37,14 @@ function renderList(list) {
       inputField.value = country.area;
     });
 
+    inputField.addEventListener('input', () => {
+      console.log(inputField.value)
+      if (!inputField.value) {
+        state.isGlobal = true;
+        state.currentCountry = 'Global'; 
+      }
+    })
+
     listWrapper.append(countryBlock);
   });
 

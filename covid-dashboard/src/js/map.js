@@ -91,7 +91,7 @@ const map = {
     const legendMap = document.querySelector('.map-legend-content');
     legendMap.innerHTML = `<div class="legend-title">${value[0].toUpperCase() + value.slice(1)}</div>
     <div class="close-button">
-      <img src="assets/close.svg">
+      <img src="assets/close.png">
     </div>`;
     for (let i = dataMarkers.length; i > 0; i -= 22) {
       const size = Math.trunc(25 * ((i + 1) / dataMarkers.length));
